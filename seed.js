@@ -3,7 +3,7 @@ const {green, red} = require('chalk')
 const {db} = require('./server/db')
 // require in models
 const Product = require('./server/db/models/product')
-// const User= require("./server/db/user")
+const User = require('./server/db/models/user')
 
 const seed = async () => {
   try {
