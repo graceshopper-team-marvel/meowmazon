@@ -1,25 +1,42 @@
+/* eslint-disable camelcase */
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
-  email: {
+  user_email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
-  password: {
+  user_password: {
     type: Sequelize.STRING,
-    // Making `.password` act like a func hides it when serializing to JSON.
-    // This is a hack to get around Sequelize's lack of a "private" option.
+    allowNull: false,
     get() {
       return () => this.getDataValue('password')
     }
   },
+  user_full_name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  user_billing_address: {
+    type: Sequelize.TEXT
+  },
+  user_shipping_address: {
+    type: Sequelize.TEXT
+  },
+  user_phone: {
+    type: Sequelize.STRING
+  },
+  user_cart: {
+    type: Sequelize.STRING
+  },
   salt: {
     type: Sequelize.STRING,
-    // Making `.salt` act like a function hides it when serializing to JSON.
-    // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
       return () => this.getDataValue('salt')
     }
