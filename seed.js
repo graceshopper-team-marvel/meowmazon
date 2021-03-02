@@ -2,7 +2,7 @@
 const {green, red} = require('chalk')
 const {db} = require('./server/db')
 // require in models
-// const Product= require("./server/db/product")
+const Product = require('./server/db/models/product')
 // const User= require("./server/db/user")
 
 const seed = async () => {
@@ -106,3 +106,14 @@ const seed = async () => {
 }
 
 module.exports = seed
+
+seed()
+  .then(() => {
+    console.log(green('Seeding success!'))
+    db.close()
+  })
+  .catch((err) => {
+    console.error(red('Oh noes! Something went wrong!'))
+    console.error(err)
+    db.close()
+  })
