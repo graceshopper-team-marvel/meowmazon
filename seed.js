@@ -2,8 +2,8 @@
 const {green, red} = require('chalk')
 const {db} = require('./server/db')
 // require in models
-// const Product= require("./server/db/product")
-// const User= require("./server/db/user")
+const Product = require('./server/db/models/product')
+const User = require('./server/db/models/user')
 
 const seed = async () => {
   try {
@@ -51,7 +51,7 @@ const seed = async () => {
       {
         product_name: 'Cat Mittens',
         product_price: 9.99,
-        product_description: 'Cat mittens ',
+        product_description: 'Mittens, but cats!',
         product_image: '/images/catMittens.jpg',
         product_category: 'clothing',
         product_quantity: 0,
@@ -59,7 +59,7 @@ const seed = async () => {
       {
         product_name: 'Cat Sweater',
         product_price: 34.99,
-        product_description: '',
+        product_description: 'Cozy Cat Sweater',
         product_image: '/images/catSweater.jpg',
         product_category: 'clothing',
         product_quantity: 34,
@@ -72,14 +72,6 @@ const seed = async () => {
         product_image: '/images/catHat.jpg',
         product_category: 'clothing',
         product_quantity: 14,
-      },
-      {
-        product_name: '',
-        product_price: 0,
-        product_description: '',
-        product_image: '',
-        product_category: '',
-        product_quantity: 0,
       },
       {
         product_name: 'Floppy Fish Toy',
@@ -100,9 +92,48 @@ const seed = async () => {
       catHat,
       floppyFish,
     ] = await Product.bulkCreate(products)
+
+    const users = [
+      {
+        user_full_name: 'Admin Adminerson',
+        user_email: 'admin@admin.com',
+        user_password: 'adminsrock',
+        user_billing_address: '123 Admin Ave, NY, US',
+        user_default_shipping_address: '123 Admin Ave, NY, US',
+        user_phone: '123-456-7890',
+        user_type: 'admin',
+        user_cart: [],
+      },
+      {
+        user_full_name: 'Minerva McGonagall',
+        user_email: 'miverva@hogwarts.com',
+        user_password: 'hogwartsrocks',
+        user_billing_address: '14 West Womping Willow, England',
+        user_default_shipping_address: '14 West Womping Willow, England',
+        user_phone: '555-666-7777',
+        user_type: 'customer',
+        user_cart: [],
+      },
+    ]
+    const [admin, minerva] = await User.bulkCreate(users)
   } catch (err) {
     console.log(red(err))
   }
 }
 
+// const users = [
+//   {user_email: "", user_password: "", user_full_name: "", user_billing_address: "", user_default_shipping_address="", user_phone: "",}
+// ]
+
 module.exports = seed
+
+seed()
+  .then(() => {
+    console.log(green('Seeding success!'))
+    db.close()
+  })
+  .catch((err) => {
+    console.error(red('Oh noes! Something went wrong!'))
+    console.error(err)
+    db.close()
+  })
