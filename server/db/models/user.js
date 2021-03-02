@@ -33,7 +33,10 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   user_cart: {
-    type: Sequelize.STRING
+    type: Sequelize.ARRAY(Sequelize.INTEGER)
+  },
+  user_type: {
+    type: Sequelize.ENUM('admin', 'customer')
   },
   salt: {
     type: Sequelize.STRING,
