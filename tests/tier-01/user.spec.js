@@ -1,7 +1,7 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const db = require('../index')
+const db = require('../../server/db/index')
 const User = db.model('user')
 
 describe('User model', () => {
@@ -20,11 +20,11 @@ describe('User model', () => {
         })
       })
 
-      it('returns true if the password is correct', () => {
+      xit('returns true if the password is correct', () => {
         expect(cody.correctPassword('bones')).to.be.equal(true)
       })
 
-      it('returns false if the password is incorrect', () => {
+      xit('returns false if the password is incorrect', () => {
         expect(cody.correctPassword('bonez')).to.be.equal(false)
       })
     }) // end describe('correctPassword')

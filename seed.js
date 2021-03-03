@@ -28,7 +28,7 @@ const seed = async () => {
           "This pizza bed is designed to hold in your cat's body heat just like a pizza fresh out of the oven!",
         product_image: '/images/pizzaBed.png',
         product_category: 'beds',
-        product_quantity: 100,
+        product_quantity: 100
       },
       {
         product_name: "Lick'em Brush",
@@ -37,7 +37,7 @@ const seed = async () => {
           'Lick your cat back and groom them at the same time!',
         product_image: '/images/catLicker.jpeg',
         product_category: 'grooming',
-        product_quantity: 55,
+        product_quantity: 55
       },
       {
         product_name: 'Bubble Backpack',
@@ -46,7 +46,7 @@ const seed = async () => {
           'Give your cat a view while you carry them around!',
         product_image: '/images/backPack.jpg',
         product_category: 'accessories',
-        product_quantity: 74,
+        product_quantity: 74
       },
       {
         product_name: 'Cat Mittens',
@@ -54,7 +54,7 @@ const seed = async () => {
         product_description: 'Mittens, but cats!',
         product_image: '/images/catMittens.jpg',
         product_category: 'clothing',
-        product_quantity: 0,
+        product_quantity: 0
       },
       {
         product_name: 'Cat Sweater',
@@ -62,7 +62,7 @@ const seed = async () => {
         product_description: 'Cozy Cat Sweater',
         product_image: '/images/catSweater.jpg',
         product_category: 'clothing',
-        product_quantity: 34,
+        product_quantity: 34
       },
       {
         product_name: 'Cat Hat',
@@ -71,7 +71,7 @@ const seed = async () => {
           'Look as cute as your kitty in this fuzzy hat with cat ears!',
         product_image: '/images/catHat.jpg',
         product_category: 'clothing',
-        product_quantity: 14,
+        product_quantity: 14
       },
       {
         product_name: 'Floppy Fish Toy',
@@ -80,8 +80,8 @@ const seed = async () => {
           'Give your kitty something to attack with our floppy fish toy!',
         product_image: '/fishToy.jpg',
         product_category: 'toys',
-        product_quantity: 26,
-      },
+        product_quantity: 26
+      }
     ]
     const [
       pizzaBed,
@@ -90,7 +90,7 @@ const seed = async () => {
       catMittens,
       catSweater,
       catHat,
-      floppyFish,
+      floppyFish
     ] = await Product.bulkCreate(products)
 
     const users = [
@@ -102,7 +102,7 @@ const seed = async () => {
         user_default_shipping_address: '123 Admin Ave, NY, US',
         user_phone: '123-456-7890',
         user_type: 'admin',
-        user_cart: [],
+        user_cart: []
       },
       {
         user_full_name: 'Minerva McGonagall',
@@ -112,8 +112,8 @@ const seed = async () => {
         user_default_shipping_address: '14 West Womping Willow, England',
         user_phone: '555-666-7777',
         user_type: 'customer',
-        user_cart: [],
-      },
+        user_cart: []
+      }
     ]
     const [admin, minerva] = await User.bulkCreate(users)
   } catch (err) {
@@ -132,7 +132,7 @@ seed()
     console.log(green('Seeding success!'))
     db.close()
   })
-  .catch((err) => {
+  .catch(err => {
     console.error(red('Oh noes! Something went wrong!'))
     console.error(err)
     db.close()
