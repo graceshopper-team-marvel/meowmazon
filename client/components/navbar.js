@@ -6,7 +6,21 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>BOILERMAKER</h1>
+    <span id="navlinks">
+      <span id="leftNav">
+        <Link to="/home">Home</Link>
+        <span>|</span>
+        <Link to="/allproduct">All Products</Link>
+      </span>
+      <span id="rightNav">
+        {/* I added these here but below at line 27 they added them depending on whether logged in */}
+        {/* <Link to="/login">Login</Link>
+        <Link to="/signup">Sign Up</Link> */}
+        <Link to="/cart">Your Cart</Link>
+      </span>
+    </span>
+    <h1 id="title">Meowmazon</h1>
+
     <nav>
       {isLoggedIn ? (
         <div>
