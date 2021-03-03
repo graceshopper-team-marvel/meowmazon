@@ -25,7 +25,7 @@ class Cart extends Component {
               <div
                 style={{
                   width: '112px',
-                  height: '5px',
+                  //   height: 'px',
                   borderBottom: '1px solid black',
                   paddingBottom: '10px'
                 }}
