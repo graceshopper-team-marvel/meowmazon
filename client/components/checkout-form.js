@@ -5,7 +5,7 @@ import {addNewOrder} from '../store/orders'
 class Checkout extends Component {
   constructor() {
     super()
-    this.cart = [
+    this.dummyCart = [
       {
         product_name: 'Pizza Bed',
         product_price: 19.99,
@@ -75,7 +75,7 @@ class Checkout extends Component {
 
   calculatePrice() {
     //must pass down cart as an array of products on props
-    return this.cart.reduce((total, product) => {
+    return this.dummyCart.reduce((total, product) => {
       total += product.product_price
       return total
     }, 0)
