@@ -9,7 +9,7 @@ export class AllProducts extends Component {
   }
 
   render() {
-    const products = this.state.products
+    const products = this.props.products || []
     return (
       <div>
         <h1>Products</h1>
@@ -17,8 +17,10 @@ export class AllProducts extends Component {
           <div className="container">
             {products.map(product => (
               <div className="item" key={product.id}>
-                <img src={product.imageUrl} />
-                <Link to={`/products/${products.id}`}>{product.name}</Link>
+                <img src={product.product_image} />
+                <Link to={`/products/${product.id}`}>
+                  {product.product_name}
+                </Link>
               </div>
             ))}
           </div>

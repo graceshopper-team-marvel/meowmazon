@@ -12,7 +12,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <span>
           {'     '}|{'      '}
         </span>
-        <Link to="/allproduct">All Products</Link>
+        <Link to="/products">All Products</Link>
       </span>
       <span id="rightNav">
         {/* I added these here but below at line 27 they added them depending on whether logged in */}
