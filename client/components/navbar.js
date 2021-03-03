@@ -9,13 +9,22 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <span id="navlinks">
       <span id="leftNav">
         <Link to="/home">Home</Link>
-        <span>|</span>
+        <span>
+          {'     '}|{'      '}
+        </span>
         <Link to="/allproduct">All Products</Link>
       </span>
       <span id="rightNav">
         {/* I added these here but below at line 27 they added them depending on whether logged in */}
-        {/* <Link to="/login">Login</Link>
-        <Link to="/signup">Sign Up</Link> */}
+        <Link to="/login">Login</Link>
+
+        <span>
+          {'     '}|{'      '}
+        </span>
+        <Link to="/signup">Sign Up</Link>
+        <span>
+          {'     '}|{'      '}
+        </span>
         <Link to="/cart">Your Cart</Link>
       </span>
     </span>
