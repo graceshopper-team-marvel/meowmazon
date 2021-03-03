@@ -230,7 +230,7 @@ describe('Tier One: Products', () => {
 
         const {products: reduxProducts} = store.getState()
         reduxProducts.forEach(reduxProduct => {
-          expect(wrapper.text()).to.include(reduxProduct.name)
+          expect(wrapper.text()).to.include(reduxProduct.product_name)
         })
       })
     })
