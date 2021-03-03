@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-// import {fetchCart} from '../store/cart.js'
+import {Link} from 'react-router-dom'
+import {fetchCart} from '../store/cart.js'
 
 class Cart extends Component {
   componentDidMount() {
@@ -11,10 +12,30 @@ class Cart extends Component {
     const cart = this.props.cart
     return (
       <div>
-        {cart.length ? (
+        <h2>Your Cart:</h2>
+        {/* this checks if cart has length displays Empty */}
+        {cart ? (
           <div>Your Cart is Empty!</div>
         ) : (
-          <div>Your Cart Isn't Empty! Items Will Display Here Soon!</div>
+          <div>
+            <h3>Your Items</h3>
+            {/* Map through items and display image, qty, */}
+            <div>Items Display here</div>
+            <div>
+              <div
+                style={{
+                  width: '112px',
+                  height: '5px',
+                  borderBottom: '1px solid black',
+                  paddingBottom: '10px'
+                }}
+              />
+              <div>{'  '}</div>
+              <div>
+                <Link to="/checkout">Checkout</Link>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     )
