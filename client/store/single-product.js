@@ -4,7 +4,7 @@ import axios from 'axios'
 const SET_PRODUCT = 'SET_PRODUCT'
 
 //Action creators
-export const setProduct = product => ({
+export const setSingleProduct = product => ({
   type: SET_PRODUCT,
   product
 })
@@ -14,7 +14,7 @@ export const fetchSingleProduct = id => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/products/${id}`)
-      dispatch(setProduct(data))
+      dispatch(setSingleProduct(data))
     } catch (error) {
       console.log(error)
     }
