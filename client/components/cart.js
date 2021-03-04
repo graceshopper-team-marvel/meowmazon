@@ -29,7 +29,6 @@ class Cart extends Component {
                   paddingBottom: '10px'
                 }}
               />
-
               <p>
                 <Link to="/checkout">Checkout</Link>
               </p>
