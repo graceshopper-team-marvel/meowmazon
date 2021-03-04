@@ -4,7 +4,7 @@ const db = require('../db')
 
 const Order = db.define('order', {
   order_price: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   order_shipping_address: {
