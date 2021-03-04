@@ -21,6 +21,11 @@ const Order = db.define('order', {
     validate: {
       isEmail: true
     }
+  },
+  order_status: {
+    type: Sequelize.ENUM('pending', 'complete'),
+    allowNull: false,
+    defaultValue: 'pending'
   }
 })
 
