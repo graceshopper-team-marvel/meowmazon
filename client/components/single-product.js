@@ -24,7 +24,7 @@ class SingleProduct extends Component {
 }
 
 const mapState = state => {
-  return {product: state.singleProduct}
+  return {product: state.singleProductReducer}
 }
 
 const mapDispatch = dispatch => {
