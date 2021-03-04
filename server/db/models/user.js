@@ -20,8 +20,7 @@ const User = db.define('user', {
     }
   },
   user_full_name: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   },
   user_billing_address: {
     type: Sequelize.TEXT
