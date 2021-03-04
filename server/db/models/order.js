@@ -15,13 +15,6 @@ const Order = db.define('order', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  order_email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      isEmail: true
-    }
-  },
   order_status: {
     type: Sequelize.ENUM('pending', 'complete'),
     allowNull: false,

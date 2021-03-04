@@ -15,6 +15,7 @@ router.get('/', async (req, res, next) => {
 //POST /api/orders
 router.post('/', async (req, res, next) => {
   try {
+    req.body.userId = req.user.dataValues.id
     const order = await Order.create(req.body)
     res.json(order)
   } catch (error) {
