@@ -1,16 +1,17 @@
 const User = require('./user')
 const Order = require('./order')
 const Product = require('./product')
+const Product_Order = require('./product-order')
 
 User.hasMany(Order)
 Order.belongsTo(User)
-Order.belongsToMany(Product, {through: 'product_order'})
-Product.belongsToMany(Order, {through: 'product_order'})
+Order.belongsToMany(Product, {through: Product_Order})
+Product.belongsToMany(Order, {through: Product_Order})
 
-// New product_order model with columns and validation order status
 
 module.exports = {
   User,
   Order,
-  Product
+  Product,
+  Product_Order
 }
