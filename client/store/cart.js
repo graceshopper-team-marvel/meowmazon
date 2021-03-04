@@ -15,13 +15,14 @@ export const gotCart = cart => {
 
 //Thunk creator
 //if user is logged in...?
-// not sure about how login information so this is a stand in function
+// not sure about how login information will be accessed so this is a stand in function
 export const fetchCart = userId => {
   //Thunk
   return async dispatch => {
     try {
       // this is a guess for a logged in user we might want the cart to
-      // be at userId/cart?  so we can access it...
+      // if the cart was stored at user/userId/cart...
+      // but i don't think this is how we'll access that
       const user = (await axios.get(`/api/user/${userId}`)).data
       const cart = user.user_cart
 
