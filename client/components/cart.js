@@ -25,15 +25,13 @@ class Cart extends Component {
               <div
                 style={{
                   width: '112px',
-                  //   height: 'px',
                   borderBottom: '1px solid black',
                   paddingBottom: '10px'
                 }}
               />
-              <div>{'  '}</div>
-              <div>
+              <p>
                 <Link to="/checkout">Checkout</Link>
-              </div>
+              </p>
             </div>
           </div>
         )}
