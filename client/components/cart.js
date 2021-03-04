@@ -21,6 +21,7 @@ class Cart extends Component {
             <h3>Your Items</h3>
             {/* Map through items and display image, qty, */}
             <div>Items Display here</div>
+            {/* <button>increase qty</button> */}
             <div>
               <div
                 style={{
