@@ -16,7 +16,7 @@ export const reducer = combineReducers({
 
 let middleware = [thunkMiddleware]
 
-if (process.browser) {
+if (typeof window !== 'undefined') {
   middleware = [...middleware, createLogger({collapsed: true})]
 }
 
