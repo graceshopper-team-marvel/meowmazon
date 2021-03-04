@@ -40,3 +40,23 @@ form div {
   display: flex;
   justify-content: center;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 10px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  width: 175px;
+  height: 175px;
+  background-color: #dedee4;
+  margin: 10px 10px;
+  border: 2px solid #fff;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
