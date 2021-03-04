@@ -2,6 +2,14 @@ const router = require('express').Router()
 const {Product} = require('../db/models')
 module.exports = router
 
+// function isAdmin(req, res, next) {
+//   if (req.user.dataValues.user_type === 'admin') {
+//     next()
+//   } else {
+//     res.json('Denied access')
+//   }
+// }
+
 //GET /api/products
 router.get('/', async (req, res, next) => {
   try {
