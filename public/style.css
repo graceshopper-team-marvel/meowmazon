@@ -60,3 +60,7 @@ form div {
   align-items: center;
   text-align: center;
 }
+
+img {
+  width: 50px;
+}
