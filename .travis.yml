@@ -13,15 +13,18 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "meowmazon-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
   - npm test # test the code
   - npm run build-client # make the bundle
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: meowmazon
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: BR4+Ou4vmuIDlJ8oXkUdnRMVkmCeP/pOYuMedtjZvA0gj3GHFzNXtZl0bTZFpKjJW9gxw6vxOltVJD4bu8Nts7pkOe5Yl2m4VxoVTIkoFvj2LQSfldxqp24obiAElPdnt4JAZIkKzZ3M0pzkLC9wam4DJzYlZdHfk8CZHF46kmmoeddpKXDkQjZvjr/5J/r6/naCF6xnet4jEriAG9X0W4CNNhLYxPBOWvw6R5sZY05GuJiMmBO5H9LBXnE8amTsou4s+pTnPCiII8EkevsXRgbupEJDk/fUN3FRrpoKwqMFa0qj9nBvaykpW5eBT/HlBrhNFO1d+cZC26Y20TMODn0u+o1n6Utg4nSibQfx5kxxDUI2cPC4wffjEEPIkW3BmCp74nVY8C9CT3ifcHhl4D7PoZwqG9oWdW1Ac8tP8vK10xiKHTN6JKLid7OZQBWZDo2Y2ngrNRv1OzxuvDEthFAiR6mR2DDcdcBMdMRjEJ7HlMrsDi2zzmGTO9B8x/ea+eof6AbrAQ7LmVBvgtLrkGLGq7GE5BhAiTi08AaC30u+iDJQMb8XJX/WokcQ3odzCzo59gnLSxUZFupGwZlf1ghPDKVh9TeAVGQ/EphEXONeSqnjxOho/OlB6s1lj9pR/29TGJIRy8qzsvXlrJXer4OEByKxMz1kelEM0KLgtE8=
