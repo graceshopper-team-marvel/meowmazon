@@ -8,7 +8,7 @@ class Checkout extends Component {
     this.dummyCart = [
       {
         product_name: 'Pizza Bed',
-        product_price: 19.99,
+        product_price: 1999,
         product_description:
           "This pizza bed is designed to hold in your cat's body heat just like a pizza fresh out of the oven.",
         product_image: '/images/pizzaBed.png',
@@ -17,7 +17,7 @@ class Checkout extends Component {
       },
       {
         product_name: "Lick'em Brush",
-        product_price: 12.99,
+        product_price: 1299,
         product_description:
           'Lick your cat back and groom them at the same time!',
         product_image: '/images/catLicker.jpeg',
@@ -26,7 +26,7 @@ class Checkout extends Component {
       },
       {
         product_name: 'Bubble Backpack',
-        product_price: 25.99,
+        product_price: 2599,
         product_description:
           'Give your cat a view while you carry them around!',
         product_image: '/images/backPack.jpg',
@@ -35,7 +35,7 @@ class Checkout extends Component {
       },
       {
         product_name: 'Cat Mittens',
-        product_price: 9.99,
+        product_price: 999,
         product_description: 'Stylish Cat Hands',
         product_image: '/images/catMittens.jpg',
         product_category: 'cat',
