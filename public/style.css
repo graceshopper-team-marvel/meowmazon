@@ -53,14 +53,14 @@ form div {
   flex-direction: column;
   width: 175px;
   height: 175px;
-  background-color: #dedee4;
+  /* background-color: #dedee4; */
   margin: 10px 10px;
-  border: 2px solid #fff;
+  /* border: 2px solid #fff; */
   justify-content: space-around;
   align-items: center;
   text-align: center;
 }
 
 img {
-  width: 50px;
+  width: 155px;
 }
