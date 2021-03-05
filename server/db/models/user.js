@@ -16,7 +16,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
     get() {
-      return () => this.getDataValue('password')
+      return () => this.getDataValue('user_password')
     }
   },
   user_full_name: {
@@ -54,7 +54,9 @@ module.exports = User
  * instanceMethods
  */
 User.prototype.correctPassword = function(candidatePwd) {
-  return User.encryptPassword(candidatePwd, this.salt()) === this.password()
+  return (
+    User.encryptPassword(candidatePwd, this.salt()) === this.user_password()
+  )
 }
 
 /**
@@ -76,9 +78,9 @@ User.encryptPassword = function(plainText, salt) {
  * hooks
  */
 const setSaltAndPassword = user => {
-  if (user.changed('password')) {
+  if (user.changed('user_password')) {
     user.salt = User.generateSalt()
-    user.password = User.encryptPassword(user.password(), user.salt())
+    user.user_password = User.encryptPassword(user.user_password(), user.salt())
   }
 }
 
