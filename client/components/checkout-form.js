@@ -44,8 +44,7 @@ class Checkout extends Component {
     ]
     this.state = {
       shippingAddress: '',
-      billingAddress: '',
-      customerEmail: ''
+      billingAddress: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -63,13 +62,11 @@ class Checkout extends Component {
     this.props.addNewOrder({
       order_price: this.calculatePrice(),
       order_shipping_address: this.state.shippingAddress,
-      order_billing_address: this.state.billingAddress,
-      order_email: this.state.customerEmail
+      order_billing_address: this.state.billingAddress
     })
     this.setState({
       shippingAddress: '',
-      billingAddress: '',
-      customerEmail: ''
+      billingAddress: ''
     })
   }
 
@@ -88,12 +85,6 @@ class Checkout extends Component {
           <h1>Your total: {this.calculatePrice()}</h1>
         </div>
         <form id="checkoutForm" onSubmit={this.handleSubmit}>
-          <label htmlFor="customerEmail">Email:</label>
-          <input
-            name="customerEmail"
-            onChange={this.handleChange}
-            value={this.state.customerEmail}
-          />
           <label htmlFor="shippingAddress">Shipping Address:</label>
           <input
             name="shippingAddress"
