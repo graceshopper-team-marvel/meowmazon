@@ -8,7 +8,6 @@ Order.belongsTo(User)
 Order.belongsToMany(Product, {through: Product_Order})
 Product.belongsToMany(Order, {through: Product_Order})
 
-
 module.exports = {
   User,
   Order,

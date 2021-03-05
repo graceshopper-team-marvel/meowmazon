@@ -67,7 +67,7 @@ async function seed() {
         product_price: 14.99,
         product_description:
           'Give your kitty something to attack with our floppy fish toy!',
-        product_image: '/fishToy.jpg',
+        product_image: '/images/fishToy.jpg',
         product_category: 'cat',
         product_quantity: 26
       }
