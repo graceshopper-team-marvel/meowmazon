@@ -10,7 +10,7 @@ export const AdminHome = props => {
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h3>ADMIN {email}</h3>
     </div>
   )
 }

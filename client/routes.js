@@ -9,7 +9,8 @@ import {
   UserHome,
   SingleProduct,
   Checkout,
-  AllProducts
+  AllProducts,
+  AdminHome
 } from './components'
 
 import {me} from './store'
@@ -21,31 +22,36 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
-
-    return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route exact path="/products/:productId" component={SingleProduct} />
-        <Route path="/products" component={AllProducts} />
-        <Route exact path="/checkout" component={Checkout} />
-        <Route exact path="/cart" component={Cart} />
-        {isLoggedIn && (
-          <Switch>
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
-        <Route component={Login} />
-      </Switch>
-    )
+    const {isLoggedIn, isAdmin} = this.props
+    console.log(this.props)
+    if (isAdmin && isLoggedIn) {
+      return (
+        <Switch>
+          <Route exact path="/home" component={AdminHome} />
+          <Route path="/products" component={AllProducts} />
+        </Switch>
+      )
+    } else {
+      return (
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route exact path="/products/:productId" component={SingleProduct} />
+          <Route path="/products" component={AllProducts} />
+          <Route exact path="/checkout" component={Checkout} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/home" component={UserHome} />
+          <Route component={Login} />
+        </Switch>
+      )
+    }
   }
 }
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.user_type === 'admin'
   }
 }
 
