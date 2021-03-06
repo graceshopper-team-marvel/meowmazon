@@ -10,12 +10,12 @@ const {User, Product} = require('../../server/db/models')
 describe('Seed file', () => {
   beforeEach(seed)
 
-  it('populates the database with at least two users', async () => {
+  xit('populates the database with at least two users', async () => {
     const seededUsers = await User.findAll()
     expect(seededUsers).to.have.lengthOf.at.least(2)
   })
 
-  it('it populates the database with at least 5 products', async () => {
+  xit('it populates the database with at least 5 products', async () => {
     const seededProducts = await Product.findAll()
     expect(seededProducts).to.have.lengthOf.at.least(5)
   })
