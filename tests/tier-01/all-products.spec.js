@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-expressions */
 import {expect} from 'chai'
 import {mount} from 'enzyme'
-// import sinon from 'sinon'
+import sinon from 'sinon'
 import React from 'react'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
@@ -59,11 +59,10 @@ describe('Tier One: Products', () => {
     mockAxios.onGet('/api/products').replyOnce(200, products)
   })
   describe('<AllProducts /> component', () => {
-    // const getProductsSpy = sinon.spy()
-    // const getProductsSpy = spy()
-    // afterEach(() => {
-    //   getProductsSpy.resetHistory()
-    // })
+    const getProductsSpy = sinon.spy()
+    afterEach(() => {
+      getProductsSpy.resetHistory()
+    })
 
     xit('renders the products passed in as props', () => {
       const wrapper = mount(
