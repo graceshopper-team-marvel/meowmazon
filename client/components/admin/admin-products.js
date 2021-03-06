@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../store/all-products'
+import {fetchProducts} from '../../store/all-products'
 import {Link} from 'react-router-dom'
+import Header from '../sidebar/header'
 
-export class AllProducts extends Component {
+export class AdminProducts extends Component {
   componentDidMount() {
     this.props.getProducts()
   }
@@ -12,6 +13,7 @@ export class AllProducts extends Component {
     const products = this.props.products || []
     return (
       <div>
+        <Header />
         <h1>Products</h1>
         {products.length ? (
           <div className="container">
@@ -38,8 +40,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => {
   return {
-    getProducts: () => dispatch(fetchProducts())
+    getProducts: id => dispatch(fetchProducts(id))
   }
 }
 
-export default connect(mapState, mapDispatch)(AllProducts)
+export default connect(mapState, mapDispatch)(AdminProducts)

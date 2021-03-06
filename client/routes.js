@@ -10,7 +10,11 @@ import {
   SingleProduct,
   Checkout,
   AllProducts,
-  AdminHome
+  AdminHome,
+  AdminProducts,
+  AdminUsers,
+  AdminOrders,
+  EditUser
 } from './components'
 
 import {me} from './store'
@@ -28,7 +32,10 @@ class Routes extends Component {
       return (
         <Switch>
           <Route exact path="/home" component={AdminHome} />
-          <Route path="/products" component={AllProducts} />
+          <Route path="/products" component={AdminProducts} />
+          <Route exact path="/users/:userId" component={EditUser} />
+          <Route path="/users" component={AdminUsers} />
+          <Route path="/orders" component={AdminOrders} />
         </Switch>
       )
     } else {

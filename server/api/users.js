@@ -20,3 +20,12 @@ router.get('/', isAdmin, async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:userId', isAdmin, async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
+    res.json({user})
+  } catch (error) {
+    next(error)
+  }
+})
