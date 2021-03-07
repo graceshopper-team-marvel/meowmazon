@@ -73,18 +73,30 @@ router.put('/', async (req, res, next) => {
       console.log('productAlreadyInOrder', productAlreadyInOrder)
       // if it does contain the product increment it this isn't workding yet:
 
-      // if (productAlreadyInOrder) {
-      //   productAlreadyInOrder.update({
-      //     product_quantity: productsOrder.product_quantity++
-      //   })
-      // } else {
-      // if it doesn't exist add it:
-      await order.addProduct(product, {
-        through: {
-          product_price: req.body.product_price * 1,
-          product_quantity: 1
-        }
-      })
+      if (productAlreadyInOrder) {
+        productAlreadyInOrder.update({
+          product_quantity: productAlreadyInOrder.product_quantity + 1
+        })
+
+        // Product_Order.update(
+        //   {product_quantity: product_quantity++},
+        //   {
+        //     where: {
+        //       orderId: order.id,
+        //       productId: product.id,
+        //     },
+        //   }
+        // )
+      } else {
+        // if it doesn't exist add it:
+
+        await order.addProduct(product, {
+          through: {
+            product_price: req.body.product_price * 1,
+            product_quantity: 1
+          }
+        })
+      }
       // }
       // and either way update the final order total
       await order.update({
@@ -92,15 +104,15 @@ router.put('/', async (req, res, next) => {
       })
     }
 
-    // let updatedOrder = await Order.findOne({
-    //   where: {
-    //     order_status: 'pending',
-    //     userId: req.body.userId,
-    //   },
-    //   include: Product,
-    // })
+    let updatedOrder = await Order.findOne({
+      where: {
+        order_status: 'pending',
+        userId: req.body.userId
+      },
+      include: Product
+    })
 
-    res.send(order)
+    res.send(updatedOrder)
   } catch (err) {
     next(err)
   }
@@ -127,22 +139,66 @@ router.get('/user/:userId', async (req, res, next) => {
 //api/orders/user/userId
 // deletes product from cart
 
-router.delete('/user/:userId', async (req, res, next) => {
+router.delete('/user/:userId/:productId', async (req, res, next) => {
   try {
-    let product = await Product.findByPk(req.body.id)
+    let productId = req.params.productId
+    let product = await Product.findByPk(productId)
+    const userId = req.params.userId
+
+    let order = await Order.findOne({
+      where: {userId: userId, order_status: 'pending'},
+      include: Product
+    })
+
+    await Product_Order.destroy({
+      where: {productId: productId, orderId: order.id}
+    })
+
+    await order.update({
+      order_price: (order.order_price -= product.product_price)
+    })
+
+    let updatedOrder = await Order.findOne({
+      where: {userId: userId, order_status: 'pending'},
+      include: Product
+    })
+
+    res.json(updatedOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//api/orders/user/userId
+// deletes product from cart
+
+router.delete('/user/:userId/', async (req, res, next) => {
+  try {
+    console.log('req.params---->', req.params)
+    let productId = req.params.productId
+    // let product = await Product.findByPk(req.body.productId)
+    // let productId = req.body.productId
     const userId = req.params.userId
     // const user = await User.findByPk(userId)
+    // console.log('req.body- inside delete-->', req.body)
+    // console.log('req.body- inside delete-------------->', req.body)
+
     const order = await Order.findOne({
       where: {userId: userId, order_status: 'pending'},
       include: Product
     })
 
-    let products = await Product_Order.findAll({
-      where: {orderId: order.id, productId: product.id}
-    })
+    // console.log('order inside delete--->', order)
+
+    // let productOrder = await Product_Order.findAll({
+    //   where: {orderId: order.id, productId: productId},
+    // })
+
+    // productOrder.destroy()
 
     await order.removeProduct(
-      product
+      {where: {productId: productId}}
+      // productOrder
       // , {
       // through: {
       //   product_price: req.body.product_price * 1,
@@ -150,7 +206,7 @@ router.delete('/user/:userId', async (req, res, next) => {
       // },
       // }
     )
-    product.destroy()
+    // product.destroy()
 
     res.json(order)
   } catch (error) {

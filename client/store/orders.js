@@ -54,7 +54,6 @@ export const updateOrder = id => {
   return async dispatch => {
     try {
       const product = (await axios.get(`api/products/${id}`)).data
-      // const {data} = await axios.post(`/api/orders/${id}`)
       const order = (await axios.put(`api/orders`, product)).data
       dispatch(updatedOrder(order))
     } catch (error) {
@@ -77,10 +76,12 @@ export const getOrder = userId => {
 
 // Thunk delete product
 
-export const deleteProduct = userId => {
+export const deleteProduct = (userId, productId) => {
   return async dispatch => {
     try {
-      const order = (await axios.delete(`api/orders/user/${userId}`)).data
+      let order = (await axios.delete(`api/orders/user/${userId}/${productId}`))
+        .data
+
       dispatch(deletedProduct(order))
     } catch (error) {
       console.log(error)

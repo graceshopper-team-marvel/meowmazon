@@ -41,10 +41,9 @@ class Cart extends Component {
                   <div>Price: {product.product_price / 100}</div>
                   <button
                     type="button"
-                    onClick={this.props.removeProduct(
-                      this.props.user.id,
-                      product.id
-                    )}
+                    onClick={() =>
+                      this.props.removeProduct(this.props.user.id, product.id)
+                    }
                   >
                     Delete
                   </button>
@@ -80,7 +79,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchOrder: userId => dispatch(getOrder(userId)),
-    removeProduct: userId => dispatch(deleteProduct(userId))
+    removeProduct: (userId, productId) =>
+      dispatch(deleteProduct(userId, productId))
   }
 }
 
