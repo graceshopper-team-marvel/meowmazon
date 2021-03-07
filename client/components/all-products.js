@@ -57,10 +57,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => {
   return {
-    getProducts: id => dispatch(fetchProducts(id)),
-    //
+    getProducts: () => dispatch(fetchProducts()),
     addToOrder: id => dispatch(updateOrder(id))
-    // put addToOrder Thunk here - pass it product id
   }
 }
 

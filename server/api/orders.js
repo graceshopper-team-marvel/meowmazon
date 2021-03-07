@@ -1,13 +1,23 @@
 const router = require('express').Router()
 const {reset} = require('nodemon')
-const {Order} = require('../db/models')
+const {Order, User} = require('../db/models')
 const {Product, Product_Order, User} = require('../db/models')
 module.exports = router
 
+function isAdmin(req, res, next) {
+  if (req.user && req.user.dataValues.user_type === 'admin') {
+    next()
+  } else {
+    res.json('Access denied')
+  }
+}
+
 //GET /api/orders
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
-    const orders = await Order.findAll()
+    const orders = await Order.findAll({
+      include: [User]
+    })
     res.json(orders)
   } catch (error) {
     next(error)
