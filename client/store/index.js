@@ -7,6 +7,7 @@ import singleProductReducer from './single-product'
 import ordersReducer from './orders'
 import allProductsReducer from './all-products'
 import allUsersReducer from './all-users'
+import allOrdersReducer from './admin-orders'
 import singleUserReducer from './admin-user'
 
 export const reducer = combineReducers({
@@ -15,6 +16,7 @@ export const reducer = combineReducers({
   products: allProductsReducer,
   users: allUsersReducer,
   adminUser: singleUserReducer,
+  orders: allOrdersReducer,
   ordersReducer
 })
 

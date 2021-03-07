@@ -16,9 +16,9 @@ export class AdminProducts extends Component {
         <Header />
         <h1>Products</h1>
         {products.length ? (
-          <div className="container">
+          <div>
             {products.map(product => (
-              <div className="item" key={product.id}>
+              <div key={product.id}>
                 <img src={product.product_image} />
                 <Link to={`/products/${product.id}`}>
                   {product.product_name}

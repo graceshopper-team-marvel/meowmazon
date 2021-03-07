@@ -7,7 +7,7 @@ const Signup = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div className="signup">
+    <div className="login_signup">
       <form onSubmit={handleSubmit} name={name}>
         <h3>Sign Up</h3>
         <div className="form-group">

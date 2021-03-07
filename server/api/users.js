@@ -10,6 +10,8 @@ function isAdmin(req, res, next) {
   }
 }
 
+// GET /api/users
+
 router.get('/', isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -21,10 +23,27 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
+// GET /api/users/:userId
+
 router.get('/:userId', isAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
     res.json({user})
+  } catch (error) {
+    next(error)
+  }
+})
+
+// PUT /api/users/:userId
+
+router.put('/:userId', isAdmin, async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
+    if (!user) {
+      res.sendStatus(404)
+    } else {
+      res.json(await user.update(req.body))
+    }
   } catch (error) {
     next(error)
   }

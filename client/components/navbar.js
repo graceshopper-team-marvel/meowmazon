@@ -16,7 +16,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       </span>
       <span id="rightNav">
         {isLoggedIn ? (
-          <a href="#" onClick={handleClick}>
+          <a href="/" onClick={handleClick}>
             Logout
           </a>
         ) : (

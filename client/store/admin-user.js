@@ -3,7 +3,7 @@ import axios from 'axios'
 // ACTION TYPES
 
 const SET_SINGLE_USER = 'SET_SINGLE_USER'
-const UPDATE_USER = 'UPDATE_USER '
+const UPDATE_USER = 'UPDATE_USER'
 
 // ACTION CREATORS
 

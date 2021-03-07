@@ -14,7 +14,8 @@ import {
   AdminProducts,
   AdminUsers,
   AdminOrders,
-  EditUser
+  EditUser,
+  EditProduct
 } from './components'
 
 import {me} from './store'
@@ -27,11 +28,11 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn, isAdmin} = this.props
-    console.log(this.props)
     if (isAdmin && isLoggedIn) {
       return (
         <Switch>
           <Route exact path="/home" component={AdminHome} />
+          <Route exact path="/products/:productId" component={EditProduct} />
           <Route path="/products" component={AdminProducts} />
           <Route exact path="/users/:userId" component={EditUser} />
           <Route path="/users" component={AdminUsers} />

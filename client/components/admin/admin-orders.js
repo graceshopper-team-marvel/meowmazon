@@ -1,28 +1,26 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../../store/all-products'
+import {fetchOrders} from '../../store/admin-orders'
 import {Link} from 'react-router-dom'
 import Header from '../sidebar/header'
 
 export class AdminOrders extends Component {
   componentDidMount() {
-    this.props.getProducts()
+    this.props.getOrders()
   }
 
   render() {
-    const products = this.props.products || []
+    const orders = this.props.orders || []
     return (
       <div>
         <Header />
         <h1>Orders</h1>
-        {products.length ? (
-          <div className="container">
-            {products.map(product => (
-              <div className="item" key={product.id}>
-                <img src={product.product_image} />
-                <Link to={`/products/${product.id}`}>
-                  {product.product_name}
-                </Link>
+        {orders.length ? (
+          <div>
+            {orders.map(order => (
+              <div key={order.id}>
+                <Link to={`/orders/${order.id}`}>Order Number: {order.id}</Link>
+                <div>{order.user.id}</div>
               </div>
             ))}
           </div>
@@ -35,12 +33,12 @@ export class AdminOrders extends Component {
 }
 
 const mapState = state => ({
-  products: state.products
+  orders: state.orders
 })
 
 const mapDispatch = dispatch => {
   return {
-    getProducts: id => dispatch(fetchProducts(id))
+    getOrders: () => dispatch(fetchOrders())
   }
 }
 

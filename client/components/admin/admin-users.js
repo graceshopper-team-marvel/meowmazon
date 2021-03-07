@@ -11,7 +11,6 @@ export class AdminUsers extends Component {
 
   render() {
     const users = this.props.users || []
-    console.log(users)
     return (
       <div>
         <Header />
