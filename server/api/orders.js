@@ -32,8 +32,9 @@ router.post('/', async (req, res, next) => {
 
 // UPDATE Order
 // PUT /api/orders
-// this should live on /api/orders/orderId because we are sending back ONE
-// with our update route to where we save ALL orders
+// this should live on it's own id... orders/user/userId
+// our get/api/orders stores ALL the orders
+// so we should use the same route to update all orders and different one for a single route
 
 router.put('/', async (req, res, next) => {
   try {
@@ -68,35 +69,38 @@ router.put('/', async (req, res, next) => {
       let productAlreadyInOrder = await Product_Order.findOne({
         where: {orderId: order.id, productId: product.id}
       })
-      // if it does contain the product increment it
-      if (productAlreadyInOrder) {
-        productAlreadyInOrder.update({
-          product_quantity: productsOrder.product_quantity++
-        })
-      } else {
-        // if it doesn't exist add it:
-        await order.addProduct(product, {
-          through: {
-            product_price: req.body.product_price * 1,
-            product_quantity: 1
-          }
-        })
-      }
+
+      console.log('productAlreadyInOrder', productAlreadyInOrder)
+      // if it does contain the product increment it this isn't workding yet:
+
+      // if (productAlreadyInOrder) {
+      //   productAlreadyInOrder.update({
+      //     product_quantity: productsOrder.product_quantity++
+      //   })
+      // } else {
+      // if it doesn't exist add it:
+      await order.addProduct(product, {
+        through: {
+          product_price: req.body.product_price * 1,
+          product_quantity: 1
+        }
+      })
+      // }
       // and either way update the final order total
       await order.update({
         order_price: (order.order_price += req.body.product_price)
       })
     }
 
-    let updatedOrder = await Order.findOne({
-      where: {
-        order_status: 'pending',
-        userId: req.body.userId
-      },
-      include: Product
-    })
+    // let updatedOrder = await Order.findOne({
+    //   where: {
+    //     order_status: 'pending',
+    //     userId: req.body.userId,
+    //   },
+    //   include: Product,
+    // })
 
-    res.send(updatedOrder)
+    res.send(order)
   } catch (err) {
     next(err)
   }
@@ -113,6 +117,40 @@ router.get('/user/:userId', async (req, res, next) => {
       where: {userId: userId, order_status: 'pending'},
       include: Product
     })
+
+    res.json(order)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//api/orders/user/userId
+// deletes product from cart
+
+router.delete('/user/:userId', async (req, res, next) => {
+  try {
+    let product = await Product.findByPk(req.body.id)
+    const userId = req.params.userId
+    // const user = await User.findByPk(userId)
+    const order = await Order.findOne({
+      where: {userId: userId, order_status: 'pending'},
+      include: Product
+    })
+
+    let products = await Product_Order.findAll({
+      where: {orderId: order.id, productId: product.id}
+    })
+
+    await order.removeProduct(
+      product
+      // , {
+      // through: {
+      //   product_price: req.body.product_price * 1,
+      //   product_quantity: 1,
+      // },
+      // }
+    )
+    product.destroy()
 
     res.json(order)
   } catch (error) {

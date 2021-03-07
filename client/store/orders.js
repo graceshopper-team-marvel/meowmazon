@@ -1,20 +1,21 @@
 import axios from 'axios'
 
+//THIS REDUCER RETURNS ONE USERS' CART  aka pending order
+// Will need a reducer to return ALL orders for a user (past/completed)
+
 //Action types
 const SET_NEW_ORDER = 'SET_NEW_ORDER'
 const UPDATE_ORDER = 'UPDATE_ORDER'
-//pending order aka the cart
 const GET_ORDER = 'GET_ORDER'
+//deletes single product from order
+const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
-//products in the cart:
-const GET_ORDER_PRODUCTS = 'GET_ORDER_PRODUCTS'
+// this thunk should return the updated order with updated total
+// and destroy the product in the product table...
 
 //Action creators
-export const gotOrderProducts = products => ({
-  type: GET_ORDER_PRODUCTS,
-  products
-})
 
+//set new order is for creating a new order
 export const setNewOrder = newOrder => ({
   type: SET_NEW_ORDER,
   newOrder
@@ -30,10 +31,11 @@ export const gotOrder = order => ({
   order
 })
 
-// SUBMITS FULL ORDER TO order table
-// Update these names to submit Order
-// To distinguish from adding productor to cart
-// That will be named Update Order
+//returns order without the product
+export const deletedProduct = order => ({
+  type: DELETE_PRODUCT,
+  order
+})
 
 //Thunks
 export const addNewOrder = order => {
@@ -65,12 +67,7 @@ export const updateOrder = id => {
 export const getOrder = userId => {
   return async dispatch => {
     try {
-      //axios call
-      // const userId = req.user.dataValues.id
-      // this actually just gets the order
-      // const products =
       const order = (await axios.get(`api/orders/user/${userId}`)).data
-
       dispatch(gotOrder(order))
     } catch (error) {
       console.log(error)
@@ -78,29 +75,21 @@ export const getOrder = userId => {
   }
 }
 
-// // Thunk
-// export const getOrderProducts = (orderId) => {
-//   return async (dispatch) => {
-//     try {
-//       //not sure about this...
-//       const orderProducts = await axios.get(`api/orders/${orderId}`)
-//     } catch (error) {
-//       console.log(error)
-//     }
-//   }
-// }
+// Thunk delete product
 
-const initialState = []
+export const deleteProduct = userId => {
+  return async dispatch => {
+    try {
+      const order = (await axios.delete(`api/orders/user/${userId}`)).data
+      dispatch(deletedProduct(order))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
-// these were originally returning [...state, action.newOrder]
-// but order was being mapped as a single object inside an array onto state
-// this.props.cart = [ {} ]
-
-// we want this:
-// this.props.cart= {}
-
-// refactored to return object because order will never been an array
-// also changed default state to an object
+// these were originally returning a spread array [...state, action.newOrder]
+// refactored to return the single object because order will never been an array of items
 
 //Reducer
 
@@ -112,8 +101,8 @@ export default function ordersReducer(state = {}, action) {
       return action.addedToOrder
     case GET_ORDER:
       return action.order
-    case GET_ORDER_PRODUCTS:
-      return action.order_products
+    case DELETE_PRODUCT:
+      return action.order
     default:
       return state
   }

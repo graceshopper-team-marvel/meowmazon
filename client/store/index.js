@@ -11,10 +11,9 @@ export const reducer = combineReducers({
   user,
   singleProductReducer,
   products: allProductsReducer,
-  // added cart value here to make it clear what we are grabbing
+  // this reducer returns the users' pending order aka cart
   order: ordersReducer
-  // all orders Reducer
-  // cartOrder reducer
+  // will need a reducer to return all orders of a user
 })
 
 let middleware = [thunkMiddleware]

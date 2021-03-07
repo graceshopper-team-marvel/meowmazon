@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {getOrder} from '../store/orders.js'
+import {getOrder, deleteProduct} from '../store/orders.js'
 
 class Cart extends Component {
   componentDidMount() {
@@ -39,16 +39,21 @@ class Cart extends Component {
                   <img style={{width: '100px'}} src={product.product_image} />
                   <div>{product.product_name}</div>
                   <div>Price: {product.product_price / 100}</div>
+                  <button
+                    type="button"
+                    onClick={this.props.removeProduct(
+                      this.props.user.id,
+                      product.id
+                    )}
+                  >
+                    Delete
+                  </button>
                   {/* <div>Qty: {product.product_quantity}</div> */}
                 </span>
               </div>
             ))}
             <h4>Order Total: {order.order_price / 100}</h4>
-            {/* {order.map((currOrder) => (
-              <div key={currOrder.id}>Total: {currOrder.order_price / 100}</div>
-            ))} */}
-            {/* <div>Items Display here</div> */}
-            {/* <button>increase qty</button> */}
+
             <div>
               <div
                 style={{
@@ -74,9 +79,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    // want to pass userId to this...
-    // how do we pass user id?
-    fetchOrder: userId => dispatch(getOrder(userId))
+    fetchOrder: userId => dispatch(getOrder(userId)),
+    removeProduct: userId => dispatch(deleteProduct(userId))
   }
 }
 
