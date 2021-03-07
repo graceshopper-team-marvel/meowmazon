@@ -14,10 +14,11 @@ export const reducer = combineReducers({
   user,
   singleProductReducer,
   products: allProductsReducer,
+  order: ordersReducer,
   users: allUsersReducer,
   adminUser: singleUserReducer,
   orders: allOrdersReducer,
-  ordersReducer
+
 })
 
 let middleware = [thunkMiddleware]

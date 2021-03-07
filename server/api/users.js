@@ -11,7 +11,6 @@ function isAdmin(req, res, next) {
 }
 
 // GET /api/users
-
 router.get('/', isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({

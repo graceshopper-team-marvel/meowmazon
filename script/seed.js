@@ -13,7 +13,7 @@ async function seed() {
     const products = [
       {
         product_name: 'Pizza Bed',
-        product_price: 19.99,
+        product_price: 1999,
         product_description:
           "This pizza bed is designed to hold in your cat's body heat just like a pizza fresh out of the oven.",
         product_image: '/images/pizzaBed.png',
@@ -22,7 +22,7 @@ async function seed() {
       },
       {
         product_name: "Lick'em Brush",
-        product_price: 12.99,
+        product_price: 1299,
         product_description:
           'Lick your cat back and groom them at the same time!',
         product_image: '/images/catLicker.jpeg',
@@ -31,7 +31,7 @@ async function seed() {
       },
       {
         product_name: 'Bubble Backpack',
-        product_price: 25.99,
+        product_price: 2599,
         product_description:
           'Give your cat a view while you carry them around!',
         product_image: '/images/backPack.jpg',
@@ -40,7 +40,7 @@ async function seed() {
       },
       {
         product_name: 'Cat Mittens',
-        product_price: 9.99,
+        product_price: 999,
         product_description: 'Stylish Cat Hands',
         product_image: '/images/catMittens.jpg',
         product_category: 'cat',
@@ -48,7 +48,7 @@ async function seed() {
       },
       {
         product_name: 'Cat Sweater',
-        product_price: 34.99,
+        product_price: 3499,
         product_description: 'Cozy Cat Sweater',
         product_image: '/images/catSweater.jpg',
         product_category: 'cat',
@@ -56,7 +56,7 @@ async function seed() {
       },
       {
         product_name: 'Cat Hat',
-        product_price: 25.99,
+        product_price: 2599,
         product_description:
           'Look as cute as your kitty in this fuzzy hat with cat ears',
         product_image: '/images/catHat.jpg',
@@ -65,7 +65,7 @@ async function seed() {
       },
       {
         product_name: 'Floppy Fish Toy',
-        product_price: 14.99,
+        product_price: 1499,
         product_description:
           'Give your kitty something to attack with our floppy fish toy!',
         product_image: '/images/fishToy.jpg',
