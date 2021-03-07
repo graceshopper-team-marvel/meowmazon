@@ -26,7 +26,7 @@ const Product = db.define('product', {
   product_category: {
     type: Sequelize.ENUM('cat')
   },
-  product_quantity: {
+  product_stock: {
     type: Sequelize.INTEGER,
     validate: {
       min: 0

@@ -8,12 +8,12 @@ const Order = db.define('order', {
     allowNull: false
   },
   order_shipping_address: {
-    type: Sequelize.TEXT,
-    allowNull: false
+    type: Sequelize.TEXT
+    // allowNull: false
   },
   order_billing_address: {
-    type: Sequelize.TEXT,
-    allowNull: false
+    type: Sequelize.TEXT
+    // allowNull: false
   },
   order_status: {
     type: Sequelize.ENUM('pending', 'complete'),

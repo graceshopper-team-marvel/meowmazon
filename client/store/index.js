@@ -11,7 +11,10 @@ export const reducer = combineReducers({
   user,
   singleProductReducer,
   products: allProductsReducer,
-  ordersReducer
+  // added cart value here to make it clear what we are grabbing
+  order: ordersReducer
+  // all orders Reducer
+  // cartOrder reducer
 })
 
 let middleware = [thunkMiddleware]
