@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-expressions */
 import {expect} from 'chai'
 import {mount} from 'enzyme'
@@ -9,7 +10,7 @@ import waitForExpect from 'wait-for-expect'
 import {Provider} from 'react-redux'
 import * as rrd from 'react-router-dom'
 
-const {MemoryRouter, BrowserRouter, StaticRouter} = rrd
+const {MemoryRouter, StaticRouter} = rrd
 
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
@@ -63,7 +64,7 @@ describe('Tier One: Products', () => {
       getProductsSpy.resetHistory()
     })
 
-    it('renders the products passed in as props', () => {
+    xit('renders the products passed in as props', () => {
       const wrapper = mount(
         <StaticRouter>
           <UnconnectedAllProducts
@@ -82,7 +83,7 @@ describe('Tier One: Products', () => {
       ])
     })
 
-    it('renders DIFFERENT products passed in as props', () => {
+    xit('renders DIFFERENT products passed in as props', () => {
       const differentProducts = [
         {
           id: 4,
@@ -137,7 +138,7 @@ describe('Tier One: Products', () => {
       expect(wrapper.text()).to.include('No Products')
     })
 
-    it('calls this.props.getProducts after mount', async () => {
+    xit('calls this.props.getProducts after mount', async () => {
       mount(
         <StaticRouter>
           <UnconnectedAllProducts
@@ -159,14 +160,14 @@ describe('Tier One: Products', () => {
     })
 
     describe('set/fetch products', () => {
-      it('setProducts action creator returns a valid action', () => {
+      xit('setProducts action creator returns a valid action', () => {
         expect(setProducts(products)).to.deep.equal({
           type: 'SET_PRODUCTS',
           products
         })
       })
 
-      it('fetchProducts thunk creator returns a thunk that GETs /api/products', async () => {
+      xit('fetchProducts thunk creator returns a thunk that GETs /api/products', async () => {
         await fakeStore.dispatch(fetchProducts())
         const [getRequest] = mockAxios.history.get
         expect(getRequest).to.not.equal(undefined)
@@ -183,11 +184,11 @@ describe('Tier One: Products', () => {
         testStore = createStore(reducer)
       })
 
-      it('returns the initial state by default', () => {
+      xit('returns the initial state by default', () => {
         expect(testStore.getState().products).to.be.an('array')
       })
 
-      it('reduces on SET_PRODUCTS action', () => {
+      xit('reduces on SET_PRODUCTS action', () => {
         const action = {type: 'SET_PRODUCTS', products}
 
         const prevState = testStore.getState()
@@ -201,7 +202,7 @@ describe('Tier One: Products', () => {
   })
 
   describe('Connect: react-redux', () => {
-    it('initializes products from the server when the application loads the /products route', async () => {
+    xit('initializes products from the server when the application loads the /products route', async () => {
       const reduxStateBeforeMount = store.getState()
       expect(reduxStateBeforeMount.products).to.deep.equal([])
       mount(
@@ -217,7 +218,7 @@ describe('Tier One: Products', () => {
       })
     })
 
-    it('<AllProducts /> renders products from the Redux store', async () => {
+    xit('<AllProducts /> renders products from the Redux store', async () => {
       const wrapper = mount(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/products']}>

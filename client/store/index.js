@@ -6,11 +6,17 @@ import user from './user'
 import singleProductReducer from './single-product'
 import ordersReducer from './orders'
 import allProductsReducer from './all-products'
+import allUsersReducer from './all-users'
+import allOrdersReducer from './admin-orders'
+import singleUserReducer from './admin-user'
 
 export const reducer = combineReducers({
   user,
   singleProductReducer,
   products: allProductsReducer,
+  users: allUsersReducer,
+  adminUser: singleUserReducer,
+  orders: allOrdersReducer,
   ordersReducer
 })
 
@@ -29,3 +35,4 @@ export default store
 export * from './user'
 export * from './single-product'
 export * from './all-products'
+export * from './all-users'
