@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {getOrder, deleteProduct} from '../store/orders.js'
+import {getOrder, deleteProduct, updateOrder} from '../store/orders.js'
 
 class Cart extends Component {
   componentDidMount() {
@@ -19,10 +19,10 @@ class Cart extends Component {
 
   render() {
     let order = this.props.order || {}
-    console.log('this.props---> on cart', this.props)
-    console.log('order---->', order)
-    // console.log('this.props.match.params---> on cart', this.props.match.params)
-    const products = this.props.order.products || []
+    let products = order.products || []
+    // if (this.props.order) {
+    //   let products = this.props.order.products
+    // } else products = []
 
     return (
       <div>
@@ -47,7 +47,12 @@ class Cart extends Component {
                   >
                     Delete
                   </button>
-                  {/* <div>Qty: {product.product_quantity}</div> */}
+                  <button
+                    type="button"
+                    onClick={() => this.props.addToOrder(product.id)}
+                  >
+                    Add+
+                  </button>
                 </span>
               </div>
             ))}
@@ -80,7 +85,8 @@ const mapDispatch = dispatch => {
   return {
     fetchOrder: userId => dispatch(getOrder(userId)),
     removeProduct: (userId, productId) =>
-      dispatch(deleteProduct(userId, productId))
+      dispatch(deleteProduct(userId, productId)),
+    addToOrder: id => dispatch(updateOrder(id))
   }
 }
 

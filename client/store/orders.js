@@ -10,12 +10,9 @@ const GET_ORDER = 'GET_ORDER'
 //deletes single product from order
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
-// this thunk should return the updated order with updated total
-// and destroy the product in the product table...
-
 //Action creators
 
-//set new order is for creating a new order
+//set new order -> creates a new order
 export const setNewOrder = newOrder => ({
   type: SET_NEW_ORDER,
   newOrder
