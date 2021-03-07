@@ -49,7 +49,7 @@ class Routes extends Component {
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/cart" component={Cart} />
           {isLoggedIn && <Route exact path="/home" component={UserHome} />}
-          <Route component={Login} />
+          {/* <Route component={Login} /> */}
         </Switch>
       )
     }

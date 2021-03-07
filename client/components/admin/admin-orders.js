@@ -1,8 +1,11 @@
+/* eslint-disable react/no-array-index-key */
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../../store/admin-orders'
 import {Link} from 'react-router-dom'
 import Header from '../sidebar/header'
+
+const headers = ['Id', 'Price', 'Shipping Address', 'Status', 'User Id']
 
 export class AdminOrders extends Component {
   componentDidMount() {
@@ -14,19 +17,30 @@ export class AdminOrders extends Component {
     return (
       <div>
         <Header />
-        <h1>Orders</h1>
-        {orders.length ? (
-          <div>
-            {orders.map(order => (
-              <div key={order.id}>
-                <Link to={`/orders/${order.id}`}>Order Number: {order.id}</Link>
-                <div>{order.user.id}</div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <h3 className="loading">Loading...</h3>
-        )}
+        <div id="admin_table_border">
+          {orders.length ? (
+            <table className="admin_table">
+              <tbody>
+                <tr>
+                  {headers.map((header, index) => (
+                    <th key={index}>{header}</th>
+                  ))}
+                </tr>
+                {orders.map(order => (
+                  <tr key={order.id}>
+                    <td>{order.id}</td>
+                    <td>${order.order_price}</td>
+                    <td>{order.order_shipping_address}</td>
+                    <td>{order.order_status}</td>
+                    <td>{order.user.id}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <h3 />
+          )}
+        </div>
       </div>
     )
   }

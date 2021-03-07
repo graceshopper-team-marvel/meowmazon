@@ -9,9 +9,6 @@ export const AdminHome = props => {
   return (
     <div>
       <Header />
-      <div>
-        <h3>{email}</h3>
-      </div>
     </div>
   )
 }
