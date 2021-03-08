@@ -147,8 +147,8 @@ router.put('/', async (req, res, next) => {
     })
 
     res.send(updatedOrder)
-  } catch (err) {
-    next(err)
+  } catch (error) {
+    next(error)
   }
 })
 
