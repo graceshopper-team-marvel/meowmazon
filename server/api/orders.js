@@ -1,7 +1,7 @@
+/* eslint-disable camelcase */
 const router = require('express').Router()
 const {reset} = require('nodemon')
-const {Order, User} = require('../db/models')
-const {Product, Product_Order, User} = require('../db/models')
+const {Product, Product_Order, User, Order} = require('../db/models')
 module.exports = router
 
 function isAdmin(req, res, next) {
