@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const router = require('express').Router()
 const {reset} = require('nodemon')
 const {Product, Product_Order, User, Order} = require('../db/models')
@@ -12,7 +13,7 @@ function isAdmin(req, res, next) {
 }
 
 //GET /api/orders
-router.get('/', isAdmin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       include: [User]
@@ -79,10 +80,13 @@ router.put('/:orderId', async (req, res, next) => {
 
 router.put('/', async (req, res, next) => {
   try {
+    console.log('req.body ----->', req.body)
     // product we are adding to order
     let product = await Product.findByPk(req.body.id)
     // we will use this to update the product quantity
-    let productId = product.id
+    let productQty = req.body.value * 1
+
+    let productPrice = req.body.product_price * 1
 
     // current user
     req.body.userId = req.user.dataValues.id
@@ -101,23 +105,30 @@ router.put('/', async (req, res, next) => {
       order = await Order.create({
         order_status: 'pending',
         userId: req.body.userId,
-        order_price: req.body.product_price
+        order_price: productPrice * productQty
+      })
+
+      order = await order.addProduct(product, {
+        through: {
+          product_price: productPrice,
+          product_quantity: productQty
+        }
       })
 
       // if the order does exist
     } else {
       // does the product we are adding already exist in that order?
       let productAlreadyInOrder = await Product_Order.findOne({
-        where: {orderId: order.id, productId: product.id}
+        where: {orderId: order.id, productId: req.body.id}
       })
       // if it's already in the order we will update the quantity
       if (productAlreadyInOrder) {
         await Product_Order.update(
-          {product_quantity: productAlreadyInOrder.product_quantity + 1},
+          {product_quantity: productQty},
           {
             where: {
               orderId: order.id,
-              productId: product.id
+              productId: req.body.id
             }
           }
         )
@@ -125,15 +136,15 @@ router.put('/', async (req, res, next) => {
         // if it doesn't exist add it:
         await order.addProduct(product, {
           through: {
-            product_price: req.body.product_price * 1,
-            product_quantity: 1
+            product_price: productPrice,
+            product_quantity: productQty
           }
         })
       }
 
       // In Both Cases We Will Update the final order total
       await order.update({
-        order_price: (order.order_price += req.body.product_price)
+        order_price: (order.order_price += productPrice * productQty)
       })
     }
 
