@@ -49,24 +49,30 @@ class Checkout extends Component {
     let order = this.props.order
     return (
       <div>
-        <div id="totalPrice">
-          <h1>Your total: {order.order_price / 100}</h1>
-        </div>
-        <form id="checkoutForm" onSubmit={this.handleSubmit}>
-          <label htmlFor="shippingAddress">Shipping Address:</label>
-          <input
-            name="shippingAddress"
-            onChange={this.handleChange}
-            value={this.state.shippingAddress}
-          />
-          <label htmlFor="billingAddress">Billing Address:</label>
-          <input
-            name="billingAddress"
-            onChange={this.handleChange}
-            value={this.state.billingAddress}
-          />
-          <button type="submit">Submit</button>
-        </form>
+        {order.order_status === 'complete' ? (
+          <div>Order submitted!</div>
+        ) : (
+          <div>
+            <div id="totalPrice">
+              <h1>Your total: {order.order_price / 100}</h1>
+            </div>
+            <form id="checkoutForm" onSubmit={this.handleSubmit}>
+              <label htmlFor="shippingAddress">Shipping Address:</label>
+              <input
+                name="shippingAddress"
+                onChange={this.handleChange}
+                value={this.state.shippingAddress}
+              />
+              <label htmlFor="billingAddress">Billing Address:</label>
+              <input
+                name="billingAddress"
+                onChange={this.handleChange}
+                value={this.state.billingAddress}
+              />
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        )}
       </div>
     )
   }

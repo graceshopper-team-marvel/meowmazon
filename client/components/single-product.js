@@ -14,7 +14,7 @@ class SingleProduct extends Component {
         <div>
           <h2>{product.product_name}</h2>
           <img src={product.product_image} />
-          <p>{product.product_price}</p>
+          <p>${product.product_price / 100}</p>
           <p>{product.product_description}</p>
         </div>
         <div />

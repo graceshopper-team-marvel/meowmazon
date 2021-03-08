@@ -45,7 +45,7 @@ class Cart extends Component {
                       this.props.removeProduct(this.props.user.id, product.id)
                     }
                   >
-                    Delete
+                    Remove
                   </button>
                   <button
                     type="button"
@@ -56,7 +56,7 @@ class Cart extends Component {
                 </span>
               </div>
             ))}
-            <h4>Order Total: {order.order_price / 100}</h4>
+            <h4>Order Total: ${order.order_price / 100}</h4>
 
             <div>
               <div
