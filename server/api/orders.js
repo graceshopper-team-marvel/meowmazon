@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const {reset} = require('nodemon')
-const {Order, User} = require('../db/models')
-const {Product, Product_Order, User} = require('../db/models')
+const {Product, Product_Order, User, Order} = require('../db/models')
 module.exports = router
 
 function isAdmin(req, res, next) {
@@ -26,14 +25,45 @@ router.get('/', isAdmin, async (req, res, next) => {
 
 //POST /api/orders
 // change this to api/orders/orderId! to return the single order
-router.post('/', async (req, res, next) => {
+// router.post('/', async (req, res, next) => {
+//   try {
+//     req.body.userId = req.user.dataValues.id
+//     const order = await Order.create(req.body, {
+//       // include: [Product],
+//       // as: 'products',
+//     })
+//     console.log('order---->', order)
+//     res.json(order)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
+
+//PUT /api/orders/:orderId ---> Updates order on submit
+router.put('/:orderId', async (req, res, next) => {
   try {
-    req.body.userId = req.user.dataValues.id
-    const order = await Order.create(req.body, {
-      // include: [Product],
-      // as: 'products',
+    //Grab the order
+    let {orderId} = req.params
+    let order = await Order.findByPk(orderId)
+    //Update it to complete, with order shipping info
+    order = await order.update({
+      order_status: 'complete',
+      order_shipping_address: req.body.order_shipping_address,
+      order_billing_address: req.body.order_billing_address
     })
-    console.log('order---->', order)
+    //Grab the user
+    let user = await User.findByPk(order.userId)
+    //Update user info
+    if (!user.user_billing_address) {
+      await user.update({
+        user_billing_address: req.body.order_billing_address
+      })
+    }
+    if (!user.user_shipping_address) {
+      await user.update({
+        user_shipping_address: req.body.order_shipping_address
+      })
+    }
     res.json(order)
   } catch (error) {
     next(error)
