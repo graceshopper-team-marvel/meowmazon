@@ -45,7 +45,7 @@ class Cart extends Component {
                       this.props.removeProduct(this.props.user.id, product.id)
                     }
                   >
-                    Delete
+                    Remove
                   </button>
                   <button
                     type="button"
