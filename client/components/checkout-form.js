@@ -1,54 +1,29 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addNewOrder} from '../store/orders'
+import {submitOrder, getOrder} from '../store/orders'
 
 class Checkout extends Component {
   constructor() {
     super()
-    this.dummyCart = [
-      {
-        product_name: 'Pizza Bed',
-        product_price: 1999,
-        product_description:
-          "This pizza bed is designed to hold in your cat's body heat just like a pizza fresh out of the oven.",
-        product_image: '/images/pizzaBed.png',
-        product_category: 'cat',
-        product_quantity: 100
-      },
-      {
-        product_name: "Lick'em Brush",
-        product_price: 1299,
-        product_description:
-          'Lick your cat back and groom them at the same time!',
-        product_image: '/images/catLicker.jpeg',
-        product_category: 'cat',
-        product_quantity: 55
-      },
-      {
-        product_name: 'Bubble Backpack',
-        product_price: 2599,
-        product_description:
-          'Give your cat a view while you carry them around!',
-        product_image: '/images/backPack.jpg',
-        product_category: 'cat',
-        product_quantity: 74
-      },
-      {
-        product_name: 'Cat Mittens',
-        product_price: 999,
-        product_description: 'Stylish Cat Hands',
-        product_image: '/images/catMittens.jpg',
-        product_category: 'cat',
-        product_quantity: 0
-      }
-    ]
     this.state = {
       shippingAddress: '',
       billingAddress: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.calculatePrice = this.calculatePrice.bind(this)
+  }
+
+  componentDidMount() {
+    const user = this.props.user
+    if (user.id) {
+      this.props.fetchOrder(user.id)
+    }
+    if (user.user_billing_address) {
+      this.setState({
+        shippingAddress: user.user_shipping_address,
+        billingAddress: user.user_billing_address
+      })
+    }
   }
 
   handleChange(event) {
@@ -59,8 +34,8 @@ class Checkout extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.addNewOrder({
-      order_price: this.calculatePrice(),
+    this.props.submitOrder({
+      id: this.props.order.id,
       order_shipping_address: this.state.shippingAddress,
       order_billing_address: this.state.billingAddress
     })
@@ -70,19 +45,12 @@ class Checkout extends Component {
     })
   }
 
-  calculatePrice() {
-    //must pass down cart as an array of products on props
-    return this.dummyCart.reduce((total, product) => {
-      total += product.product_price
-      return total
-    }, 0)
-  }
-
   render() {
+    let order = this.props.order
     return (
       <div>
         <div id="totalPrice">
-          <h1>Your total: {this.calculatePrice()}</h1>
+          <h1>Your total: {order.order_price / 100}</h1>
         </div>
         <form id="checkoutForm" onSubmit={this.handleSubmit}>
           <label htmlFor="shippingAddress">Shipping Address:</label>
@@ -104,11 +72,15 @@ class Checkout extends Component {
   }
 }
 
+const mapState = state => {
+  return {user: state.user, order: state.order}
+}
+
 const mapDispatch = dispatch => {
-  console.log('MAPPING FN TO PROPS')
   return {
-    addNewOrder: order => dispatch(addNewOrder(order))
+    fetchOrder: userId => dispatch(getOrder(userId)),
+    submitOrder: order => dispatch(submitOrder(order))
   }
 }
 
-export default connect(null, mapDispatch)(Checkout)
+export default connect(mapState, mapDispatch)(Checkout)

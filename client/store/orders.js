@@ -4,7 +4,7 @@ import axios from 'axios'
 // Will need a reducer to return ALL orders for a user (past/completed)
 
 //Action types
-const SET_NEW_ORDER = 'SET_NEW_ORDER'
+const COMPLETE_ORDER = 'COMPLETE_ORDER'
 const UPDATE_ORDER = 'UPDATE_ORDER'
 const GET_ORDER = 'GET_ORDER'
 //deletes single product from order
@@ -13,9 +13,9 @@ const DELETE_PRODUCT = 'DELETE_PRODUCT'
 //Action creators
 
 //set new order -> creates a new order
-export const setNewOrder = newOrder => ({
-  type: SET_NEW_ORDER,
-  newOrder
+export const completedOrder = order => ({
+  type: COMPLETE_ORDER,
+  order
 })
 
 export const updatedOrder = addedToOrder => ({
@@ -35,11 +35,11 @@ export const deletedProduct = order => ({
 })
 
 //Thunks
-export const addNewOrder = order => {
+export const submitOrder = order => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/orders', order)
-      dispatch(setNewOrder(data))
+      const {data} = await axios.put(`/api/orders/${order.id}`, order)
+      dispatch(completedOrder(data))
     } catch (error) {
       console.log(error)
     }
@@ -93,8 +93,8 @@ export const deleteProduct = (userId, productId) => {
 
 export default function ordersReducer(state = {}, action) {
   switch (action.type) {
-    case SET_NEW_ORDER:
-      return action.newOrder
+    case COMPLETE_ORDER:
+      return action.order
     case UPDATE_ORDER:
       return action.addedToOrder
     case GET_ORDER:
