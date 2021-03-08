@@ -33,8 +33,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <Link to="/cart">Your Cart</Link>
       </span>
     </span>
-    <h1 id="title">Meowmazon</h1>
-    <hr />
+    {/* <h1 id="title">Meowmazon</h1> */}
+    <img
+      style={{width: '1300px', marginTop: '10px'}}
+      src="/images/logoHeader2.jpg"
+    />
   </div>
 )
 

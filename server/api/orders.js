@@ -153,12 +153,21 @@ router.delete('/user/:userId/:productId', async (req, res, next) => {
       include: Product
     })
 
+    //have to grab total from the Product Order Table instance
+
+    // let totalToDeduct =
+    //   product.product_price * order.products[productId].product_quantity
+
+    // console.log(totalToDeduct)
+
     await Product_Order.destroy({
       where: {productId: productId, orderId: order.id}
     })
 
+    //only removes one right now tried above to grab quantity before destroy and doesn't work
     await order.update({
-      order_price: (order.order_price -= product.product_price)
+      order_price: order.order_price - product.product_price
+      //product.product_price
     })
 
     let updatedOrder = await Order.findOne({
