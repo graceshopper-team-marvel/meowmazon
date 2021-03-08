@@ -33,29 +33,51 @@ class Cart extends Component {
         ) : (
           <div>
             <h3>Your Items</h3>
-            {order.products.map(product => (
-              <div key={product.id}>
-                <span>
-                  <img style={{width: '100px'}} src={product.product_image} />
-                  <div>{product.product_name}</div>
-                  <div>Price: {product.product_price / 100}</div>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      this.props.removeProduct(this.props.user.id, product.id)
-                    }
-                  >
-                    Remove
-                  </button>
-                  <button
+            {order.products.map(product => {
+              // console.log('product--->', product)
+              return (
+                <div key={product.id}>
+                  <span>
+                    <img style={{width: '100px'}} src={product.product_image} />
+                    <div>{product.product_name}</div>
+                    <div>Price: {product.product_price / 100}</div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        this.props.removeProduct(this.props.user.id, product.id)
+                      }
+                    >
+                      Remove
+                    </button>
+                    <label htmlFor="chooseQuantity">Qty:</label>
+                    <select
+                      value={product.product_order.product_quantity}
+                      onChange={evt => {
+                        console.log('event', evt)
+                        this.props.addToOrder(product, evt.target.value)
+                      }}
+                      name="chooseQuantity"
+                      id="chooseQuantity"
+                    >
+                      <option value={product.product_order.product_quantity}>
+                        {product.product_order.product_quantity}
+                      </option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                    {/* <button
                     type="button"
                     onClick={() => this.props.addToOrder(product.id)}
                   >
                     Add+
-                  </button>
-                </span>
-              </div>
-            ))}
+                  </button> */}
+                  </span>
+                </div>
+              )
+            })}
+
             <h4>Order Total: ${order.order_price / 100}</h4>
 
             <div>
@@ -86,7 +108,7 @@ const mapDispatch = dispatch => {
     fetchOrder: userId => dispatch(getOrder(userId)),
     removeProduct: (userId, productId) =>
       dispatch(deleteProduct(userId, productId)),
-    addToOrder: id => dispatch(updateOrder(id))
+    addToOrder: (product, value) => dispatch(updateOrder(product, value))
   }
 }
 

@@ -47,11 +47,14 @@ export const submitOrder = order => {
 }
 
 //Thunks Update Order
-export const updateOrder = id => {
+export const updateOrder = product => {
   return async dispatch => {
     try {
-      const product = (await axios.get(`api/products/${id}`)).data
+      // const updatedProduct = (await axios.get(`api/products/${product.id}`))
+      //   .data
+
       const order = (await axios.put(`api/orders`, product)).data
+      // console.log('UPDATED ORDER: ', order)
       dispatch(updatedOrder(order))
     } catch (error) {
       console.log(error)
