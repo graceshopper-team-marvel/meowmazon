@@ -134,7 +134,7 @@ router.put('/', async (req, res, next) => {
         )
       } else {
         // if it doesn't exist add it:
-        await order.addProduct(req.body.product, {
+        await order.addProduct(product, {
           through: {
             product_price: productPrice,
             product_quantity: productQty
@@ -210,17 +210,34 @@ router.delete('/user/:userId/:productId', async (req, res, next) => {
     let product = await Product.findByPk(productId)
     const userId = req.params.userId
 
-    let order = await Order.findOne({
-      where: {userId: userId, order_status: 'pending'},
-      include: Product
+    let oldOrder = await Order.findOne({
+      where: {
+        order_status: 'pending',
+        userId: userId
+      },
+      include: [{model: Product, through: {Product_Order}}]
     })
 
     await Product_Order.destroy({
-      where: {productId: productId, orderId: order.id}
+      where: {productId: productId, orderId: oldOrder.id}
+    })
+
+    let order = await Order.findOne({
+      where: {
+        order_status: 'pending',
+        userId: userId
+      },
+      include: [{model: Product, through: {Product_Order}}]
     })
 
     await order.update({
-      order_price: (order.order_price -= product.product_price)
+      order_price: order.products.reduce((sum, singleProduct) => {
+        return (
+          sum +
+          singleProduct.product_order.product_quantity *
+            singleProduct.product_order.product_price
+        )
+      }, 0)
     })
 
     let updatedOrder = await Order.findOne({
