@@ -2,16 +2,16 @@ const router = require('express').Router()
 const {User, Order} = require('../db/models')
 module.exports = router
 
-function isAdmin(req, res, next) {
-  if (req.user && req.user.dataValues.user_type === 'admin') {
-    next()
-  } else {
-    res.json('Access denied')
-  }
-}
+// function isAdmin(req, res, next) {
+//   if (req.user && req.user.dataValues.user_type === 'admin') {
+//     next()
+//   } else {
+//     res.json('Access denied')
+//   }
+// }
 
 // GET /api/users
-router.get('/', isAdmin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: ['id', 'user_email']
@@ -24,7 +24,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 
 // GET /api/users/:userId
 
-router.get('/:userId', isAdmin, async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
     if (!user) {

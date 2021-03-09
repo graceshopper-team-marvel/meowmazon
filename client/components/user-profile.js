@@ -1,12 +1,11 @@
 /* eslint-disable camelcase */
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {updateUser} from '../store/admin-user'
-import {me} from '../store/user'
+import {updateUser, fetchSingleUser} from '../store/admin-user'
 
 export class UserProfile extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       user_email: '',
       user_full_name: '',
@@ -19,20 +18,14 @@ export class UserProfile extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  async componentDidUpdate() {
-    console.log('PROPS', this.props)
-    let user = this.props.user
-    if (!this.props.user) {
-      user = await this.props.getUserProfile()
-    }
-    console.log('state', this.state)
+  componentDidMount() {
     this.setState({
-      user_email: user.user_email,
-      user_full_name: user.user_full_name,
-      user_shipping_address: user.user_shipping_address,
-      user_billing_address: user.user_billing_address,
-      user_phone: user.user_phone,
-      user_type: user.user_type
+      user_email: this.props.user.user_email,
+      user_full_name: this.props.user.user_full_name,
+      user_shipping_address: this.props.user.user_shipping_address,
+      user_billing_address: this.props.user.user_billing_address,
+      user_phone: this.props.user.user_phone,
+      user_type: this.props.user.user_type
     })
   }
 
@@ -67,42 +60,42 @@ export class UserProfile extends Component {
           type="text"
           name="user_full_name"
           onChange={handleChange}
-          value={user_full_name}
+          value={user_full_name || ''}
         />
         <label htmlFor="userEmail">Email:</label>
         <input
           type="text"
           name="user_email"
           onChange={handleChange}
-          value={user_email}
+          value={user_email || ''}
         />
         <label htmlFor="userShippingAddress">Shipping Address:</label>
         <input
           type="text"
           name="user_shipping_address"
           onChange={handleChange}
-          value={user_shipping_address}
+          value={user_shipping_address || ''}
         />
         <label htmlFor="userBillingAddress">Billing Address:</label>
         <input
           type="text"
           name="user_billing_address"
           onChange={handleChange}
-          value={user_billing_address}
+          value={user_billing_address || ''}
         />
         <label htmlFor="userPhone">Phone Number:</label>
         <input
           type="text"
           name="user_phone"
           onChange={handleChange}
-          value={user_phone}
+          value={user_phone || ''}
         />
         <label htmlFor="userType">Type:</label>
         <input
           type="text"
           name="user_type"
           onChange={handleChange}
-          value={user_type}
+          value={user_type || ''}
         />
         <button type="submit">Submit</button>
       </form>
@@ -116,7 +109,7 @@ const mapState = state => ({
 
 const mapDispatch = (dispatch, {history}) => {
   return {
-    getUserProfile: () => dispatch(me()),
+    fetchSingleUser: id => dispatch(fetchSingleUser(id)),
     updateUser: user => dispatch(updateUser(user, history))
   }
 }

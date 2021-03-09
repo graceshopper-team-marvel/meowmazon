@@ -6,21 +6,24 @@ import {UserProfile} from './user-profile'
 import {fetchOrders} from '../store/user'
 
 export class UserHome extends Component {
-  componentDidMount() {
-    this.props.getOrders()
+  async componentDidMount() {
+    if (!this.props.orders) {
+      await this.props.fetchOrders()
+    }
   }
 
   render() {
     const {user_email} = this.props
-    const orders = this.props.orders
+    const orders = this.props.orders || []
     console.log('USER HOME ORDERS', orders)
     return (
       <div>
         <h3>Welcome, {user_email}</h3>
         <div>
           <h1>Your Orders:</h1>
-          {/* <tbody>
-          {orders.map((order) => (
+        </div>
+        <tbody>
+          {orders.map(order => (
             <tr key={order.id}>
               <td>{order.id}</td>
               <td>${order.order_price}</td>
@@ -29,11 +32,11 @@ export class UserHome extends Component {
               <td>{order.user.id}</td>
             </tr>
           ))}
-        </tbody> */}
-        </div>
+        </tbody>
+
         <div>
           <h1>Update your profile:</h1>
-          <UserProfile />
+          <UserProfile user={this.props.user} />
         </div>
       </div>
     )
