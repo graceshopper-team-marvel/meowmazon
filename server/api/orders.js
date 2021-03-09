@@ -82,20 +82,20 @@ router.put('/', async (req, res, next) => {
   try {
     console.log('req.body ----->', req.body)
     // product we are adding to order
-    let product = await Product.findByPk(req.body.id)
+    let product = await Product.findByPk(req.body.product.id)
     // we will use this to update the product quantity
     let productQty = req.body.value * 1
-
-    let productPrice = req.body.product_price * 1
+    // let prevQty = req.body.product.product_order.product_quantity
+    let productPrice = req.body.product.product_price * 1
 
     // current user
-    req.body.userId = req.user.dataValues.id
+    let userId = req.user.dataValues.id
 
     // see if pending order exists already
     let order = await Order.findOne({
       where: {
         order_status: 'pending',
-        userId: req.body.userId
+        userId: userId
       },
       include: Product
     })
@@ -104,11 +104,11 @@ router.put('/', async (req, res, next) => {
     if (!order) {
       order = await Order.create({
         order_status: 'pending',
-        userId: req.body.userId,
+        userId: userId,
         order_price: productPrice * productQty
       })
 
-      order = await order.addProduct(product, {
+      order = await order.addProduct(req.body.product, {
         through: {
           product_price: productPrice,
           product_quantity: productQty
@@ -119,7 +119,7 @@ router.put('/', async (req, res, next) => {
     } else {
       // does the product we are adding already exist in that order?
       let productAlreadyInOrder = await Product_Order.findOne({
-        where: {orderId: order.id, productId: req.body.id}
+        where: {orderId: order.id, productId: req.body.product.id}
       })
       // if it's already in the order we will update the quantity
       if (productAlreadyInOrder) {
@@ -128,13 +128,13 @@ router.put('/', async (req, res, next) => {
           {
             where: {
               orderId: order.id,
-              productId: req.body.id
+              productId: req.body.product.id
             }
           }
         )
       } else {
         // if it doesn't exist add it:
-        await order.addProduct(product, {
+        await order.addProduct(req.body.product, {
           through: {
             product_price: productPrice,
             product_quantity: productQty
@@ -142,9 +142,29 @@ router.put('/', async (req, res, next) => {
         })
       }
 
+      //updateOrder.products = array of all products
+      //updatedOrder.products.product.product_order.product_quantity
+      let prevOrder = await Order.findOne({
+        where: {
+          order_status: 'pending',
+          userId: userId
+        },
+        include: [{model: Product, through: {Product_Order}}]
+      })
+
       // In Both Cases We Will Update the final order total
       await order.update({
-        order_price: (order.order_price += productPrice * productQty)
+        order_price: prevOrder.products.reduce((sum, singleProduct) => {
+          if (singleProduct.id === req.body.product.id) {
+            return sum + productQty * productPrice
+          } else {
+            return (
+              sum +
+              singleProduct.product_order.product_quantity *
+                singleProduct.product_order.product_price
+            )
+          }
+        }, 0)
       })
     }
 
@@ -152,7 +172,7 @@ router.put('/', async (req, res, next) => {
     let updatedOrder = await Order.findOne({
       where: {
         order_status: 'pending',
-        userId: req.body.userId
+        userId: userId
       },
       include: Product
     })

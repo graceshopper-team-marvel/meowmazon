@@ -2,21 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/all-products'
 import {Link} from 'react-router-dom'
-import {updateOrder} from '../store/orders.js'
 
 export class AllProducts extends Component {
-  constructor() {
-    super()
-    this.handleClick = this.handleClick.bind(this)
-  }
   componentDidMount() {
     this.props.getProducts()
-  }
-
-  handleClick(e) {
-    let productId = e.target.value
-    this.props.addToOrder(productId)
-    //call thunk from props pass productId to it
   }
 
   // product_id
@@ -51,14 +40,6 @@ export class AllProducts extends Component {
                     style={{marginBottom: '10px'}}
                   />
                 </Link>
-                <button
-                  id="addToCartButton"
-                  type="button"
-                  value={product.id}
-                  onClick={this.handleClick}
-                >
-                  Add To Cart
-                </button>
               </div>
             ))}
           </div>
@@ -76,8 +57,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => {
   return {
-    getProducts: () => dispatch(fetchProducts()),
-    addToOrder: id => dispatch(updateOrder(id))
+    getProducts: () => dispatch(fetchProducts())
   }
 }
 
