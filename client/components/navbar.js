@@ -8,11 +8,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <span id="navlinks">
       <span id="leftNav">
-        <Link to="/home">Home</Link>
+        <Link to="/home" style={{color: 'black'}}>
+          Home
+        </Link>
         <span>
           {'     '}|{'      '}
         </span>
-        <Link to="/products">All Products</Link>
+        <Link to="/products" style={{color: 'black'}}>
+          All Products
+        </Link>
       </span>
       <span id="rightNav">
         {isLoggedIn ? (
@@ -20,20 +24,27 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             Logout
           </a>
         ) : (
-          <Link to="/login">Login</Link>
+          <Link to="/login" style={{color: 'black'}}>
+            Login
+          </Link>
         )}
 
         <span>
           {'     '}|{'      '}
         </span>
-        <Link to="/signup">Sign Up</Link>
+        <Link to="/signup" style={{color: 'black'}}>
+          Sign Up
+        </Link>
         <span>
           {'     '}|{'      '}
         </span>
-        <Link to="/cart">Your Cart</Link>
+        <Link to="/cart" style={{color: 'black'}}>
+          Your Cart
+        </Link>
       </span>
     </span>
-    <h1 id="title">Meowmazon</h1>
+    {/* <h1 id="title">Meowmazon</h1> */}
+    <img style={{width: '100%'}} src="/images/header.jpg" />
     <hr />
   </div>
 )

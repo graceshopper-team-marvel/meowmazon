@@ -13,14 +13,32 @@ export class AllProducts extends Component {
     const products = this.props.products || []
     return (
       <div>
-        <h1>Products</h1>
+        <h2
+          style={{
+            marginRight: '10px',
+            paddingLeft: '15px',
+            height: '30px',
+            // backgroundColor: 'black',
+            // color: 'white',
+            // fontSize: '15px',
+            '-webkit-font-smoothing': 'antialiased'
+            // backgroundColor: '#EFEFEF',
+          }}
+        >
+          Shop All Of Your Favorite Cat Items!
+        </h2>
         {products.length ? (
           <div className="container">
             {products.map(product => (
               <div className="item" key={product.id}>
-                <img src={product.product_image} />
-                <Link to={`/products/${product.id}`}>
-                  {product.product_name}
+                <Link to={`/products/${product.id}`} style={{color: 'black'}}>
+                  <div style={{margin: '10px', fontWeight: 'bold'}}>
+                    {product.product_name}
+                  </div>
+                  <img
+                    src={product.product_image}
+                    style={{marginBottom: '10px'}}
+                  />
                 </Link>
               </div>
             ))}
