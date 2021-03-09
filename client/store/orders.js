@@ -47,14 +47,16 @@ export const submitOrder = order => {
 }
 
 //Thunks Update Order
-export const updateOrder = product => {
+//we are sending an object with product on product key
+// and the qty on a value key
+export const updateOrder = productAndQty => {
   return async dispatch => {
     try {
       // const updatedProduct = (await axios.get(`api/products/${product.id}`))
       //   .data
-
-      const order = (await axios.put(`api/orders`, product)).data
-      // console.log('UPDATED ORDER: ', order)
+      console.log('PRODUCT BEING PASSED INTO THUNK', productAndQty)
+      const order = (await axios.put(`/api/orders`, productAndQty)).data
+      console.log('PRODUCT COMING BACK FROM AXIOS: ', order)
       dispatch(updatedOrder(order))
     } catch (error) {
       console.log(error)

@@ -34,6 +34,7 @@ form div {
 #rightNav {
   margin-right: 15px;
   margin-left: 15px;
+  color: black;
 }
 
 #title {
@@ -46,13 +47,13 @@ form div {
   flex-direction: row;
   flex-wrap: wrap;
   margin: 10px;
+  /* background-color: rgb(241, 241, 241); */
 }
 
 .item {
   display: flex;
   flex-direction: column;
   width: 175px;
-  height: 175px;
   margin: 10px 10px;
   justify-content: space-around;
   align-items: center;
@@ -196,4 +197,20 @@ span.pro-item-content {
 #admin_img {
   width: 30px;
   height: 30px;
+}
+
+/* CART BUTTONS */
+
+#addToCartButton {
+  height: 22px;
+  width: 80px;
+  background-color: rgb(22, 22, 22);
+  color: white;
+  border-radius: 4px;
+  size: 17px;
+  font-size: 15px;
+}
+
+#cartProductName {
+  font-weight: bold;
 }
