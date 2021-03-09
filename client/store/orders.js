@@ -52,9 +52,9 @@ export const updateOrder = product => {
     try {
       // const updatedProduct = (await axios.get(`api/products/${product.id}`))
       //   .data
-
+      console.log('PRODUCT BEING PASSED INTO THUNK', product)
       const order = (await axios.put(`api/orders`, product)).data
-      // console.log('UPDATED ORDER: ', order)
+      console.log('PRODUCT COMING BACK FROM AXIOS: ', order)
       dispatch(updatedOrder(order))
     } catch (error) {
       console.log(error)

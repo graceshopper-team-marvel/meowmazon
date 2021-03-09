@@ -54,7 +54,10 @@ class Cart extends Component {
                       value={product.product_order.product_quantity}
                       onChange={evt => {
                         console.log('event', evt)
-                        this.props.addToOrder(product, evt.target.value)
+                        this.props.addToOrder({
+                          product,
+                          value: evt.target.value
+                        })
                       }}
                       name="chooseQuantity"
                       id="chooseQuantity"
