@@ -62,7 +62,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getSingleProduct: id => dispatch(fetchSingleProduct(id)),
-    addToOrder: id => dispatch(updateOrder(id))
+    addToOrder: productAndQty => dispatch(updateOrder(productAndQty))
   }
 }
 

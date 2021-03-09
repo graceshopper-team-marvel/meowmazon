@@ -32,16 +32,17 @@ class Cart extends Component {
           <div>Your Cart is Empty!</div>
         ) : (
           <div>
-            <h3>Your Items</h3>
+            {/* <h3>Your Items</h3> */}
             {order.products.map(product => {
               // console.log('product--->', product)
               return (
                 <div key={product.id}>
                   <span>
+                    <div id="cartProductName">{product.product_name}</div>
                     <img style={{width: '100px'}} src={product.product_image} />
-                    <div>{product.product_name}</div>
-                    <div>Price: {product.product_price / 100}</div>
+                    <div>Price: ${product.product_price / 100}</div>
                     <button
+                      id="addToCartButton"
                       type="button"
                       onClick={() =>
                         this.props.removeProduct(this.props.user.id, product.id)
@@ -92,7 +93,9 @@ class Cart extends Component {
                 }}
               />
               <p>
-                <Link to="/checkout">Checkout</Link>
+                <Link to="/checkout" style={{color: 'black'}}>
+                  Checkout
+                </Link>
               </p>
             </div>
           </div>
