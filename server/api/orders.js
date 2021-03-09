@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 const router = require('express').Router()
-const {reset} = require('nodemon')
+// const {reset} = require('nodemon')
 const {Product, Product_Order, User, Order} = require('../db/models')
 module.exports = router
 
