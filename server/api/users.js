@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order} = require('../db/models')
 module.exports = router
 
 function isAdmin(req, res, next) {
@@ -39,7 +39,7 @@ router.get('/:userId', isAdmin, async (req, res, next) => {
 
 // PUT /api/users/:userId
 
-router.put('/:userId', isAdmin, async (req, res, next) => {
+router.put('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
     if (!user) {
@@ -47,6 +47,20 @@ router.put('/:userId', isAdmin, async (req, res, next) => {
     } else {
       res.json(await user.update(req.body))
     }
+  } catch (error) {
+    next(error)
+  }
+})
+
+//GET /api/users/orders
+router.get('/orders', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        userId: req.user.dataValues.id
+      }
+    })
+    res.json(orders)
   } catch (error) {
     next(error)
   }
