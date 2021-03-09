@@ -52,10 +52,12 @@ export const logout = () => async dispatch => {
   }
 }
 
-export const fetchOrders = () => async dispatch => {
+export const fetchOrders = id => async dispatch => {
   try {
-    const orders = await axios.get('/api/users/orders')
-    dispatch(getOrders(orders))
+    console.log('THUNK CALLED')
+    const {data} = await axios.get(`/api/users/orders/${id}`)
+    console.log('RESPONSE IN THUNK', data)
+    dispatch(getOrders(data))
   } catch (error) {
     console.error(error)
   }

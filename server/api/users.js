@@ -53,11 +53,13 @@ router.put('/:userId', async (req, res, next) => {
 })
 
 //GET /api/users/orders
-router.get('/orders', async (req, res, next) => {
+router.get('/orders/:userId', async (req, res, next) => {
   try {
+    console.log('orders---->', req.body)
+
     const orders = await Order.findAll({
       where: {
-        userId: req.user.dataValues.id
+        userId: req.params.userId
       }
     })
     res.json(orders)

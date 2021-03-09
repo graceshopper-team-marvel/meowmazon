@@ -7,33 +7,34 @@ import {fetchOrders} from '../store/user'
 
 export class UserHome extends Component {
   async componentDidMount() {
-    // if (!this.props.orders) {
-    //   await this.props.fetchOrders()
-    // }
+    if (!this.props.orders) {
+      await this.props.fetchOrders(this.props.user.id)
+    }
+    console.log('USER HOME USER PROPS', this.props.user.id)
   }
 
   render() {
     const {user_email} = this.props
     const orders = this.props.orders || []
-    console.log('USER HOME ORDERS', orders)
+    // console.log('USER HOME PROPS', this.props)
     return (
       <div>
         <h3>Welcome, {user_email}</h3>
         <div>
           <h1>Your Orders:</h1>
         </div>
-        {/* <tbody>
-          {orders.map(order => (
-            <tr key={order.id}>
-              <td>{order.id}</td>
-              <td>${order.order_price}</td>
-              <td>{order.order_shipping_address}</td>
-              <td>{order.order_status}</td>
-              <td>{order.user.id}</td>
-            </tr>
-          ))}
-        </tbody> */}
-
+        <table className="user_table">
+          <tbody>
+            {orders.map(order => (
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>${order.order_price / 100}</td>
+                <td>{order.order_shipping_address}</td>
+                <td>{order.order_status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <div>
           <h1>Update your profile:</h1>
           <UserProfile user={this.props.user} />
@@ -52,7 +53,7 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => ({
-  fetchOrders: () => dispatch(fetchOrders())
+  fetchOrders: id => dispatch(fetchOrders(id))
 })
 
 export default connect(mapState, mapDispatch)(UserHome)
