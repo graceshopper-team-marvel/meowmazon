@@ -29,7 +29,9 @@ export class AllProducts extends Component {
           <div className="container">
             {products.map(product => (
               <div className="item" key={product.id}>
-                <img src={product.product_image} />
+                <Link to={`/products/${product.id}`}>
+                  <img src={product.product_image} />
+                </Link>
                 <Link to={`/products/${product.id}`}>
                   {product.product_name}
                 </Link>

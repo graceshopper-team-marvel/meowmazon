@@ -24,22 +24,6 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//POST /api/orders
-// change this to api/orders/orderId! to return the single order
-// router.post('/', async (req, res, next) => {
-//   try {
-//     req.body.userId = req.user.dataValues.id
-//     const order = await Order.create(req.body, {
-//       // include: [Product],
-//       // as: 'products',
-//     })
-//     console.log('order---->', order)
-//     res.json(order)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
 //PUT /api/orders/:orderId ---> Updates order on submit
 router.put('/:orderId', async (req, res, next) => {
   try {
@@ -47,25 +31,29 @@ router.put('/:orderId', async (req, res, next) => {
     let {orderId} = req.params
     let order = await Order.findByPk(orderId)
     //Update it to complete, with order shipping info
-    order = await order.update({
-      order_status: 'complete',
-      order_shipping_address: req.body.order_shipping_address,
-      order_billing_address: req.body.order_billing_address
-    })
-    //Grab the user
-    let user = await User.findByPk(order.userId)
-    //Update user info
-    if (!user.user_billing_address) {
-      await user.update({
-        user_billing_address: req.body.order_billing_address
+    if (!order) {
+      res.sendStatus(404)
+    } else {
+      order = await order.update({
+        order_status: 'complete',
+        order_shipping_address: req.body.order_shipping_address,
+        order_billing_address: req.body.order_billing_address
       })
+      //Grab the user
+      let user = await User.findByPk(order.userId)
+      //Update user info
+      if (!user.user_billing_address) {
+        await user.update({
+          user_billing_address: req.body.order_billing_address
+        })
+      }
+      if (!user.user_shipping_address) {
+        await user.update({
+          user_shipping_address: req.body.order_shipping_address
+        })
+      }
+      res.json(order).status(202)
     }
-    if (!user.user_shipping_address) {
-      await user.update({
-        user_shipping_address: req.body.order_shipping_address
-      })
-    }
-    res.json(order)
   } catch (error) {
     next(error)
   }
@@ -174,8 +162,11 @@ router.get('/user/:userId', async (req, res, next) => {
       where: {userId: userId, order_status: 'pending'},
       include: Product
     })
-
-    res.json(order)
+    if (!order) {
+      res.send('Cart Not Found')
+    } else {
+      res.json(order)
+    }
   } catch (error) {
     next(error)
   }
@@ -208,7 +199,7 @@ router.delete('/user/:userId/:productId', async (req, res, next) => {
       include: Product
     })
 
-    res.json(updatedOrder)
+    res.json(updatedOrder).status()
   } catch (error) {
     next(error)
   }

@@ -27,7 +27,11 @@ router.get('/', isAdmin, async (req, res, next) => {
 router.get('/:userId', isAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
-    res.json({user})
+    if (!user) {
+      res.sendStatus(404)
+    } else {
+      res.json({user})
+    }
   } catch (error) {
     next(error)
   }

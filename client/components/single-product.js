@@ -11,13 +11,10 @@ class SingleProduct extends Component {
     const product = this.props.product
     return (
       <div>
-        <div>
-          <h2>{product.product_name}</h2>
-          <img src={product.product_image} />
-          <p>${product.product_price / 100}</p>
-          <p>{product.product_description}</p>
-        </div>
-        <div />
+        <h2>{product.product_name}</h2>
+        <img src={product.product_image} />
+        <p>${product.product_price / 100}</p>
+        <p>{product.product_description}</p>
       </div>
     )
   }
