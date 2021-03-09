@@ -7,9 +7,9 @@ import {fetchOrders} from '../store/user'
 
 export class UserHome extends Component {
   async componentDidMount() {
-    if (!this.props.orders) {
-      await this.props.fetchOrders()
-    }
+    // if (!this.props.orders) {
+    //   await this.props.fetchOrders()
+    // }
   }
 
   render() {
@@ -22,7 +22,7 @@ export class UserHome extends Component {
         <div>
           <h1>Your Orders:</h1>
         </div>
-        <tbody>
+        {/* <tbody>
           {orders.map(order => (
             <tr key={order.id}>
               <td>{order.id}</td>
@@ -32,7 +32,7 @@ export class UserHome extends Component {
               <td>{order.user.id}</td>
             </tr>
           ))}
-        </tbody>
+        </tbody> */}
 
         <div>
           <h1>Update your profile:</h1>

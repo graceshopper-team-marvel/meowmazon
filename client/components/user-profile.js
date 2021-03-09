@@ -36,11 +36,11 @@ export class UserProfile extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault()
-    this.props.updateUser({
-      ...this.props.user,
-      ...this.state
-    })
+    // e.preventDefault()
+    // this.props.updateUser({
+    //   ...this.props.user,
+    //   ...this.state
+    // })
   }
 
   render() {
