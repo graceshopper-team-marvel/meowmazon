@@ -80,9 +80,12 @@ router.put('/:orderId', async (req, res, next) => {
 
 router.put('/', async (req, res, next) => {
   try {
-    console.log('req.body ----->', req.body)
+    // gets an object with product on key "product"
+    // qty on key "value"
+
     // product we are adding to order
     let product = await Product.findByPk(req.body.product.id)
+
     // we will use this to update the product quantity
     let productQty = req.body.value * 1
     // let prevQty = req.body.product.product_order.product_quantity
@@ -106,8 +109,18 @@ router.put('/', async (req, res, next) => {
         order_status: 'pending',
         userId: userId,
         order_price: productPrice * productQty
+        // include: [{model: Product, through: {Product_Order}}],
       })
 
+      // have to create the first productOrder row to pass the info we want
+      let productOrder = await Product_Order.create({
+        product_price: productPrice,
+        product_quantity: productQty,
+        productId: req.body.product.id,
+        orderId: order.id
+      })
+
+      // adds product to the order
       order = await order.addProduct(req.body.product, {
         through: {
           product_price: productPrice,
