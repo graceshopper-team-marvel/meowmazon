@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {updateUser, fetchSingleUser} from '../store/admin-user'
+import {updateUser} from '../store/admin-user'
 
 export class UserProfile extends Component {
   constructor(props) {
@@ -11,8 +11,7 @@ export class UserProfile extends Component {
       user_full_name: '',
       user_shipping_address: '',
       user_billing_address: '',
-      user_phone: '',
-      user_type: ''
+      user_phone: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -24,8 +23,7 @@ export class UserProfile extends Component {
       user_full_name: this.props.user.user_full_name,
       user_shipping_address: this.props.user.user_shipping_address,
       user_billing_address: this.props.user.user_billing_address,
-      user_phone: this.props.user.user_phone,
-      user_type: this.props.user.user_type
+      user_phone: this.props.user.user_phone
     })
   }
 
@@ -36,11 +34,11 @@ export class UserProfile extends Component {
   }
 
   handleSubmit(e) {
-    // e.preventDefault()
-    // this.props.updateUser({
-    //   ...this.props.user,
-    //   ...this.state
-    // })
+    e.preventDefault()
+    this.props.updateUser({
+      ...this.props.user,
+      ...this.state
+    })
   }
 
   render() {
@@ -49,8 +47,7 @@ export class UserProfile extends Component {
       user_full_name,
       user_shipping_address,
       user_billing_address,
-      user_phone,
-      user_type
+      user_phone
     } = this.state
     const {handleSubmit, handleChange} = this
     return (
@@ -90,13 +87,7 @@ export class UserProfile extends Component {
           onChange={handleChange}
           value={user_phone || ''}
         />
-        <label htmlFor="userType">Type:</label>
-        <input
-          type="text"
-          name="user_type"
-          onChange={handleChange}
-          value={user_type || ''}
-        />
+
         <button type="submit">Submit</button>
       </form>
     )
@@ -109,7 +100,6 @@ const mapState = state => ({
 
 const mapDispatch = (dispatch, {history}) => {
   return {
-    fetchSingleUser: id => dispatch(fetchSingleUser(id)),
     updateUser: user => dispatch(updateUser(user, history))
   }
 }

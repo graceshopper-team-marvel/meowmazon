@@ -4,19 +4,19 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {UserProfile} from './user-profile'
 import {fetchOrders} from '../store/user'
+import {updateUser} from '../store/admin-user'
 
 export class UserHome extends Component {
   async componentDidMount() {
     if (!this.props.orders) {
       await this.props.fetchOrders(this.props.user.id)
     }
-    console.log('USER HOME USER PROPS', this.props.user.id)
+    console.log('PROPS', this.props)
   }
 
   render() {
     const {user_email} = this.props
     const orders = this.props.orders || []
-    // console.log('USER HOME PROPS', this.props)
     return (
       <div>
         <h3>Welcome, {user_email}</h3>
@@ -27,17 +27,20 @@ export class UserHome extends Component {
           <tbody>
             {orders.map(order => (
               <tr key={order.id}>
-                <td>{order.id}</td>
-                <td>${order.order_price / 100}</td>
-                <td>{order.order_shipping_address}</td>
-                <td>{order.order_status}</td>
+                <td>Order ID: {order.id}</td>
+                <td>Total paid: ${order.order_price / 100}</td>
+                <td>Shipped to: {order.order_shipping_address}</td>
+                <td>Order Status: {order.order_status}</td>
               </tr>
             ))}
           </tbody>
         </table>
         <div>
           <h1>Update your profile:</h1>
-          <UserProfile user={this.props.user} />
+          <UserProfile
+            user={this.props.user}
+            updateUser={this.props.updateUser}
+          />
         </div>
       </div>
     )
@@ -53,7 +56,8 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => ({
-  fetchOrders: id => dispatch(fetchOrders(id))
+  fetchOrders: id => dispatch(fetchOrders(id)),
+  updateUser: user => dispatch(updateUser(user, history))
 })
 
 export default connect(mapState, mapDispatch)(UserHome)
