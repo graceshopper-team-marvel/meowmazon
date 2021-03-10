@@ -214,3 +214,51 @@ span.pro-item-content {
 #cartProductName {
   font-weight: bold;
 }
+
+/* FOOTER */
+
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  display: block;
+  padding: 20px 0 0 0;
+}
+
+.footer-middle {
+  background: black;
+  padding-top: 1rem;
+  color: white;
+  font-family: sans-serif;
+  font-size: 14px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+.title-column {
+  font-size: 18px;
+  text-align: left;
+}
+
+.footer-column {
+  padding: 0 60px 0 0;
+}
+
+h5 {
+  margin: 5px 0;
+}
