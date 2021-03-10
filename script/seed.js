@@ -67,8 +67,64 @@ async function seed() {
         product_name: 'Floppy Fish Toy',
         product_price: 1499,
         product_description:
-          'Give your kitty something to attack with our floppy fish toy!',
+          'Give your kitty something to attack with our floppy fish toy',
         product_image: '/images/fishToy.jpg',
+        product_category: 'cat',
+        product_quantity: 26
+      },
+      {
+        product_name: 'Mushroom Cat Fur Hat',
+        product_price: 2199,
+        product_description: 'Handmade from real cat fur',
+        product_image: '/images/hat_mush.jpg',
+        product_category: 'cat',
+        product_quantity: 26
+      },
+      {
+        product_name: 'Stripe Cat Fur Hat',
+        product_price: 2199,
+        product_description: 'Handmade from real cat fur',
+        product_image: '/images/hat_stripes.jpg',
+        product_category: 'cat',
+        product_quantity: 26
+      },
+      {
+        product_name: 'Dinosaur Knit Hat',
+        product_price: 2199,
+        product_description: 'Handknit dinosaur hat',
+        product_image: '/images/hat_dino.jpg',
+        product_category: 'cat',
+        product_quantity: 26
+      },
+      {
+        product_name: 'Alien Cat Fur Hat',
+        product_price: 2199,
+        product_description: 'Handmade from real cat fur',
+        product_image: '/images/hat_alien.jpg',
+        product_category: 'cat',
+        product_quantity: 26
+      },
+      {
+        product_name: 'Bear Cat Hat- Yellow',
+        product_price: 2199,
+        product_description: 'Yellow Hat with Bear Ears',
+        product_image: '/images/hat_bear_yellow.jpg',
+        product_category: 'cat',
+        product_quantity: 26
+      },
+      {
+        product_name: 'Bear Cat Hat- Natural',
+        product_price: 2199,
+        product_description: 'Brown Hat with Bear Ears',
+        product_image: '/images/hat_bear.jpg',
+        product_category: 'cat',
+        product_quantity: 26
+      },
+      {
+        product_name: 'Cat Beanie',
+        product_price: 2199,
+        product_description: 'Handknit beanie for your kitty',
+        product_image: '/images/hat_beanie.jpg',
         product_category: 'cat',
         product_quantity: 26
       }
@@ -81,7 +137,8 @@ async function seed() {
       catMittens,
       catSweater,
       catHat,
-      floppyFish
+      floppyFish,
+      hatMush
     ] = await Product.bulkCreate(products)
 
     const users = [
