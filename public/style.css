@@ -83,7 +83,7 @@ img {
 }
 #header .pro-sidebar-inner .pro-sidebar-layout {
   overflow-y: hidden;
-  height: 1200px;
+  height: 500px;
 }
 #header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
   font-size: 20px;
@@ -265,11 +265,11 @@ span.pro-item-content {
 /* FOOTER */
 
 footer {
-  position: relative;
+  position: static;
   bottom: 0;
   width: 100%;
   display: block;
-  padding: 20px 0 0 0;
+  padding: 200px 0 0 0;
 }
 
 .footer-middle {
