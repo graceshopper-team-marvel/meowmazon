@@ -56,7 +56,11 @@ export class EditProduct extends Component {
     } = this.state
     const {handleSubmit, handleChange} = this
     return (
-      <form id="updateProduct" onSubmit={handleSubmit}>
+      <form
+        id="updateProduct"
+        className="BasicInputAdmin"
+        onSubmit={handleSubmit}
+      >
         <label htmlFor="productName">Name:</label>
         <input
           type="text"
@@ -92,10 +96,16 @@ export class EditProduct extends Component {
           onChange={handleChange}
           value={product_quantity || ''}
         />
-        <button type="submit">Submit</button>
-        <Link id="cancel" to="/products">
-          Cancel
-        </Link>
+        <div className="CheckoutButtonAdmin">
+          <button className="CheckoutButtonAdmin" type="submit">
+            Submit
+          </button>
+        </div>
+        <span className="CheckoutButtonAdmin">
+          <Link id="cancel" to="/products">
+            Cancel
+          </Link>
+        </span>
       </form>
     )
   }

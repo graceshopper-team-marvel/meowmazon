@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/single-product'
@@ -52,10 +53,16 @@ class SingleProduct extends Component {
               type="button"
               id="singlePageButton"
               onClick={() => {
-                this.props.addToOrder({
-                  product: product,
-                  value: this.state.value
-                })
+                if (!this.props.user.id) {
+                  alert(
+                    "You're so close! \n\nUnfortunately, our guest cart is still a work in progrss. To add this item to your cart, kindly create an account."
+                  )
+                } else {
+                  this.props.addToOrder({
+                    product: product,
+                    value: this.state.value
+                  })
+                }
               }}
             >
               Add To Cart
@@ -68,7 +75,7 @@ class SingleProduct extends Component {
 }
 
 const mapState = state => {
-  return {product: state.singleProductReducer}
+  return {product: state.singleProductReducer, user: state.user}
 }
 
 const mapDispatch = dispatch => {

@@ -8,12 +8,6 @@ class OrderSummary extends Component {
     if (user.id) {
       this.props.fetchOrder(user.id)
     }
-    // if (user.user_billing_address) {
-    //   this.setState({
-    //     shippingAddress: user.user_shipping_address,
-    //     billingAddress: user.user_billing_address,
-    //   })
-    // }
   }
   render() {
     let order = this.props.order

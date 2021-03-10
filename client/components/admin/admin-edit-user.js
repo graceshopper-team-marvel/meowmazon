@@ -59,7 +59,7 @@ export class EditUser extends Component {
     } = this.state
     const {handleSubmit, handleChange} = this
     return (
-      <form id="updateUser" onSubmit={handleSubmit}>
+      <form id="updateUser" className="BasicInputAdmin" onSubmit={handleSubmit}>
         <label htmlFor="userName">Name:</label>
         <input
           type="text"
@@ -102,10 +102,16 @@ export class EditUser extends Component {
           onChange={handleChange}
           value={user_type || ''}
         />
-        <button type="submit">Submit</button>
-        <Link id="cancel" to="/users">
-          Cancel
-        </Link>
+        <div className="CheckoutButtonAdmin">
+          <button className="CheckoutButtonAdmin" type="submit">
+            Submit
+          </button>
+        </div>
+        <span className="CheckoutButtonAdmin">
+          <Link id="cancel" to="/users">
+            Cancel
+          </Link>
+        </span>
       </form>
     )
   }
