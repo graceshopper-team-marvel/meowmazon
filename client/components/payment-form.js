@@ -62,7 +62,8 @@ class PaymentForm extends Component {
     super()
     this.state = {
       shippingAddress: '',
-      billingAddress: ''
+      billingAddress: '',
+      fullName: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -76,7 +77,8 @@ class PaymentForm extends Component {
     if (user.user_billing_address) {
       this.setState({
         shippingAddress: user.user_shipping_address,
-        billingAddress: user.user_billing_address
+        billingAddress: user.user_billing_address,
+        fullName: user.user_full_name
       })
     }
   }
@@ -96,7 +98,8 @@ class PaymentForm extends Component {
     })
     this.setState({
       shippingAddress: '',
-      billingAddress: ''
+      billingAddress: '',
+      fullName: ''
     })
   }
   render() {
@@ -110,6 +113,7 @@ class PaymentForm extends Component {
             name="name"
             label="Full Name"
             type="text"
+            value={this.state.fullName}
             placeholder="John Smith"
           />
           <BasicInput
