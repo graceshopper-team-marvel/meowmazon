@@ -1,17 +1,17 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order} = require('../db/models')
 module.exports = router
 
-function isAdmin(req, res, next) {
-  if (req.user && req.user.dataValues.user_type === 'admin') {
-    next()
-  } else {
-    res.json('Access denied')
-  }
-}
+// function isAdmin(req, res, next) {
+//   if (req.user && req.user.dataValues.user_type === 'admin') {
+//     next()
+//   } else {
+//     res.json('Access denied')
+//   }
+// }
 
 // GET /api/users
-router.get('/', isAdmin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: ['id', 'user_email']
@@ -24,10 +24,14 @@ router.get('/', isAdmin, async (req, res, next) => {
 
 // GET /api/users/:userId
 
-router.get('/:userId', isAdmin, async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
-    res.json({user})
+    if (!user) {
+      res.sendStatus(404)
+    } else {
+      res.json({user})
+    }
   } catch (error) {
     next(error)
   }
@@ -35,7 +39,7 @@ router.get('/:userId', isAdmin, async (req, res, next) => {
 
 // PUT /api/users/:userId
 
-router.put('/:userId', isAdmin, async (req, res, next) => {
+router.put('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
     if (!user) {
@@ -43,6 +47,22 @@ router.put('/:userId', isAdmin, async (req, res, next) => {
     } else {
       res.json(await user.update(req.body))
     }
+  } catch (error) {
+    next(error)
+  }
+})
+
+//GET /api/users/orders
+router.get('/orders/:userId', async (req, res, next) => {
+  try {
+    console.log('orders---->', req.body)
+
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.userId
+      }
+    })
+    res.json(orders)
   } catch (error) {
     next(error)
   }
