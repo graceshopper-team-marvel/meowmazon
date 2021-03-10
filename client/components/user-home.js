@@ -6,12 +6,13 @@ import {UserProfile} from './user-profile'
 import {fetchOrders} from '../store/user'
 import {updateUser} from '../store/admin-user'
 
+const headers = ['Id', 'Price', 'Shipping Address', 'Status']
+
 export class UserHome extends Component {
   async componentDidMount() {
     if (!this.props.orders) {
       await this.props.fetchOrders(this.props.user.id)
     }
-    console.log('PROPS', this.props)
   }
 
   render() {
@@ -19,28 +20,33 @@ export class UserHome extends Component {
     const orders = this.props.orders || []
     return (
       <div>
-        <h3>Welcome, {user_email}</h3>
+        <h1 id="userWelcome">Welcome, {user_email}</h1>
         <div>
-          <h1>Your Orders:</h1>
+          <h3 className="userProfileTitle">My Orders</h3>
         </div>
-        <table className="user_table">
-          <tbody>
-            {orders.map(order => (
-              <tr key={order.id}>
-                <td>Order ID: {order.id}</td>
-                <td>Total paid: ${order.order_price / 100}</td>
-                <td>Shipped to: {order.order_shipping_address}</td>
-                <td>Order Status: {order.order_status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
         <div>
-          <h1>Update your profile:</h1>
-          <UserProfile
-            user={this.props.user}
-            updateUser={this.props.updateUser}
-          />
+          <table className="admin_table">
+            <tbody>
+              <tr>
+                {headers.map((header, index) => <th key={index}>{header}</th>)}
+              </tr>
+              {orders.map(order => (
+                <tr key={order.id}>
+                  <td>{order.id}</td>
+                  <td>${order.order_price / 100}</td>
+                  <td>{order.order_shipping_address}</td>
+                  <td>{order.order_status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div>
+            <h3 className="userProfileTitle">My Profile</h3>
+            <UserProfile
+              user={this.props.user}
+              updateUser={this.props.updateUser}
+            />
+          </div>
         </div>
       </div>
     )

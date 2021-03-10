@@ -29,7 +29,7 @@ export class AdminOrders extends Component {
                 {orders.map(order => (
                   <tr key={order.id}>
                     <td>{order.id}</td>
-                    <td>${order.order_price}</td>
+                    <td>${order.order_price / 100}</td>
                     <td>{order.order_shipping_address}</td>
                     <td>{order.order_status}</td>
                     <td>{order.user.id}</td>

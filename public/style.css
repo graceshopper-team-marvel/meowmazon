@@ -199,6 +199,53 @@ span.pro-item-content {
   height: 30px;
 }
 
+/* USER PROFILE PAGE */
+
+.formLabel {
+  font-family: Arial, Helvetica, sans-serif;
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: #000;
+  clear: both;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 15px;
+}
+
+.inputField {
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 0;
+  width: 100%;
+  height: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  font-size: 0.75rem;
+  text-indent: 0;
+  color: #000;
+  background-color: #fff;
+  margin: 0 0 28px;
+}
+
+#userWelcome {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.userProfileTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.25rem;
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 700;
+  color: #000;
+  clear: both;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
 /* CART BUTTONS */
 
 #addToCartButton {
