@@ -4,6 +4,7 @@
 const {green, red} = require('chalk')
 const db = require('../server/db')
 const {User, Product} = require('../server/db/models')
+const userSeed = require('./user-seed')
 
 async function seed() {
   try {
@@ -84,33 +85,10 @@ async function seed() {
       floppyFish
     ] = await Product.bulkCreate(products)
 
-    const users = [
-      {
-        user_full_name: 'Admin Adminerson',
-        user_email: 'admin@admin.com',
-        user_password: 'adminsrock',
-        user_billing_address: '123 Admin Ave, NY, US',
-        user_default_shipping_address: '123 Admin Ave, NY, US',
-        user_phone: '123-456-7890',
-        user_type: 'admin',
-        user_cart: []
-      },
-      {
-        user_full_name: 'Minerva McGonagall',
-        user_email: 'miverva@hogwarts.com',
-        user_password: 'hogwartsrocks',
-        user_billing_address: '14 West Womping Willow, England',
-        user_default_shipping_address: '14 West Womping Willow, England',
-        user_phone: '555-666-7777',
-        user_type: 'customer',
-        user_cart: []
-      }
-    ]
-
-    const [admin, minerva] = await User.bulkCreate(users)
+    const [admin, minerva] = await User.bulkCreate(userSeed)
 
     console.log(green(`seeded ${products.length} products`))
-    console.log(green(`seeded ${users.length} users`))
+    console.log(green(`seeded ${userSeed.length} users`))
     console.log(green(`seeded successfully`))
   } catch (err) {
     console.log(red(err))

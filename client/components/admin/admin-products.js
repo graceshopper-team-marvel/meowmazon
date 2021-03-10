@@ -40,7 +40,7 @@ export class AdminProducts extends Component {
                       <img id="admin_img" src={product.product_image} />
                     </td>
                     <td>{product.product_name}</td>
-                    <td>${product.product_price}</td>
+                    <td>${product.product_price / 100}</td>
                     <td>{product.product_description}</td>
                     <td>{product.product_category}</td>
                     <td>{product.product_quantity}</td>

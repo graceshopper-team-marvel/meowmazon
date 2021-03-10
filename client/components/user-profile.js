@@ -52,43 +52,60 @@ export class UserProfile extends Component {
     const {handleSubmit, handleChange} = this
     return (
       <form id="updateUser" onSubmit={handleSubmit}>
-        <label htmlFor="userName">Name:</label>
+        <label className="formLabel" htmlFor="userName">
+          Name
+        </label>
         <input
+          className="inputField"
           type="text"
           name="user_full_name"
           onChange={handleChange}
           value={user_full_name || ''}
         />
-        <label htmlFor="userEmail">Email:</label>
+        <label className="formLabel" htmlFor="userEmail">
+          Email *
+        </label>
         <input
+          className="inputField"
           type="text"
           name="user_email"
           onChange={handleChange}
           value={user_email || ''}
         />
-        <label htmlFor="userShippingAddress">Shipping Address:</label>
+        <label className="formLabel" htmlFor="userShippingAddress">
+          Shipping Address
+        </label>
         <input
+          className="inputField"
           type="text"
           name="user_shipping_address"
           onChange={handleChange}
           value={user_shipping_address || ''}
         />
-        <label htmlFor="userBillingAddress">Billing Address:</label>
+        <label className="formLabel" htmlFor="userBillingAddress">
+          Billing Address
+        </label>
         <input
+          className="inputField"
           type="text"
           name="user_billing_address"
           onChange={handleChange}
           value={user_billing_address || ''}
         />
-        <label htmlFor="userPhone">Phone Number:</label>
+        <label className="formLabel" htmlFor="userPhone">
+          Phone Number
+        </label>
         <input
+          className="inputField"
           type="text"
           name="user_phone"
           onChange={handleChange}
           value={user_phone || ''}
         />
 
-        <button type="submit">Submit</button>
+        <button type="submit" id="addToCartButton">
+          Update
+        </button>
       </form>
     )
   }
