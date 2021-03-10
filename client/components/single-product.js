@@ -18,38 +18,50 @@ class SingleProduct extends Component {
   render() {
     const product = this.props.product || {}
     return (
-      <div>
+      <div className="singlePageProduct">
         <div>
-          <h2>{product.product_name}</h2>
-          <img src={product.product_image} />
-          <p>${product.product_price / 100}</p>
-          <p>{product.product_description}</p>
+          <img src={product.product_image} id="singlePageImage" />
+          {/* <h2>{product.product_name}</h2> */}
+          {/* <img src={product.product_image} id="singlePageImage" /> */}
+          {/* <p>${product.product_price / 100}</p>
+          <p>{product.product_description}</p> */}
         </div>
-        <label htmlFor="chooseQuantity">Qty:</label>
-        <select
-          value={this.state.value}
-          onChange={evt => {
-            this.setState({value: evt.target.value})
-          }}
-          name="chooseQuantity"
-          id="chooseQuantity"
-        >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-        </select>
-        <button
-          type="button"
-          onClick={() => {
-            this.props.addToOrder({
-              product: product,
-              value: this.state.value
-            })
-          }}
-        >
-          Add To Cart
-        </button>
+        <div className="singleProductDescription">
+          <h2>{product.product_name}</h2>
+          <p className="singlePageDescriptionFont">
+            {product.product_description}
+          </p>
+          <p className="boldFont">${product.product_price / 100}</p>
+
+          <label htmlFor="chooseQuantity">Qty:</label>
+          <div id="singleProductButtons">
+            <select
+              value={this.state.value}
+              onChange={evt => {
+                this.setState({value: evt.target.value})
+              }}
+              name="chooseQuantity"
+              id="chooseQuantity"
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+            <button
+              type="button"
+              id="singlePageButton"
+              onClick={() => {
+                this.props.addToOrder({
+                  product: product,
+                  value: this.state.value
+                })
+              }}
+            >
+              Add To Cart
+            </button>
+          </div>
+        </div>
       </div>
     )
   }
