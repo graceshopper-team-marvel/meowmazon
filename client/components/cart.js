@@ -25,7 +25,7 @@ class Cart extends Component {
     // } else products = []
 
     return (
-      <div>
+      <div className="cartWholeContainer">
         <h2>Your Cart:</h2>
         {/* this checks if cart has length displays Empty */}
         {!order.products ? (
@@ -93,7 +93,9 @@ class Cart extends Component {
               )
             })}
 
-            <h4>Order Total: ${order.order_price / 100}</h4>
+            <h4 className="orderTotalFont">
+              Order Total: ${order.order_price / 100}
+            </h4>
 
             <div>
               <div
