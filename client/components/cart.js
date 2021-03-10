@@ -37,47 +37,58 @@ class Cart extends Component {
               // console.log('product--->', product)
               return (
                 <div key={product.id}>
-                  <span>
-                    <div id="cartProductName">{product.product_name}</div>
-                    <img style={{width: '100px'}} src={product.product_image} />
-                    <div>Price: ${product.product_price / 100}</div>
-                    <button
-                      id="addToCartButton"
-                      type="button"
-                      onClick={() =>
-                        this.props.removeProduct(this.props.user.id, product.id)
-                      }
-                    >
-                      Remove
-                    </button>
-                    <label htmlFor="chooseQuantity">Qty:</label>
-                    <select
-                      value={product.product_order.product_quantity}
-                      onChange={evt => {
-                        console.log('event', evt)
-                        this.props.addToOrder({
-                          product,
-                          value: evt.target.value
-                        })
-                      }}
-                      name="chooseQuantity"
-                      id="chooseQuantity"
-                    >
-                      <option value={product.product_order.product_quantity}>
-                        {product.product_order.product_quantity}
-                      </option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </select>
+                  <div className="cartPageContainer">
+                    <img id="cartImage" src={product.product_image} />
+
+                    <div className="cartDescription">
+                      <div className="boldFont">{product.product_name}</div>
+                      <div>${product.product_price / 100}</div>
+                      <div className="cartButtons">
+                        <button
+                          id="addToCartButton"
+                          type="button"
+                          onClick={() =>
+                            this.props.removeProduct(
+                              this.props.user.id,
+                              product.id
+                            )
+                          }
+                        >
+                          Remove
+                        </button>
+                        <label htmlFor="chooseQuantity">Qty:</label>
+                        <select
+                          value={product.product_order.product_quantity}
+                          onChange={evt => {
+                            console.log('event', evt)
+                            this.props.addToOrder({
+                              product,
+                              value: evt.target.value
+                            })
+                          }}
+                          name="chooseQuantity"
+                          id="chooseQuantity"
+                        >
+                          <option
+                            value={product.product_order.product_quantity}
+                          >
+                            {product.product_order.product_quantity}
+                          </option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                        </select>
+                      </div>
+                    </div>
+
                     {/* <button
                     type="button"
                     onClick={() => this.props.addToOrder(product.id)}
                   >
                     Add+
                   </button> */}
-                  </span>
+                  </div>
                 </div>
               )
             })}
@@ -92,8 +103,11 @@ class Cart extends Component {
                   paddingBottom: '10px'
                 }}
               />
-              <p>
-                <Link to="/checkout" style={{color: 'black'}}>
+              <p className="checkOutFont">
+                <Link
+                  to="/checkout"
+                  style={{color: 'black', fontWeight: 'bold'}}
+                >
                   Checkout
                 </Link>
               </p>
