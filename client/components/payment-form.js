@@ -56,17 +56,6 @@ function ExpiryDate() {
     </div>
   )
 }
-// function CheckoutButton() {
-//   return (
-//     <div className="CheckoutButton">
-//       <button type="submit" >Place Secure Order</button>
-//       <span>
-//         <i className="fa fa-fw fa-lock"></i> Your credit card information is
-//         encrypted
-//       </span>
-//     </div>
-//   )
-// }
 
 class PaymentForm extends Component {
   constructor() {
